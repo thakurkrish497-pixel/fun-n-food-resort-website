@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Header Scroll Effect (only for index)
-  if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+  if (window.location.pathname.includes('index') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
         header.style.backgroundColor = 'var(--primary-color)';
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const formatText = (text) => text ? text.replace(/\n\n/g, '<br><br>') : '';
 
       // --- Index Page ---
-      if (path.endsWith('index.html') || path === '/' || path.endsWith('/')) {
+      if (path.includes('index') || path === '/' || path.endsWith('/')) {
         document.getElementById('hero-title').textContent = data.hero.title;
         document.getElementById('hero-text').innerHTML = formatText(data.hero.text);
         document.getElementById('hero-bg').src = data.hero.bgImage;
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // --- Facilities Page ---
-      if (path.endsWith('facilities.html')) {
+      if (path.includes('facilities')) {
         document.getElementById('fac-title').textContent = data.facilities.title;
         const facContainer = document.getElementById('facilities-container');
         if(facContainer) {
@@ -124,21 +124,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // --- Dining Page ---
-      if (path.endsWith('dining.html')) {
+      if (path.includes('dining')) {
         document.getElementById('dining-title').textContent = data.dining.title;
         document.getElementById('dining-text').innerHTML = formatText(data.dining.text);
         document.getElementById('dining-img').src = data.dining.image;
       }
 
       // --- Events Page ---
-      if (path.endsWith('events.html')) {
+      if (path.includes('events')) {
         document.getElementById('events-title').textContent = data.events.title;
         document.getElementById('events-text').innerHTML = formatText(data.events.text);
         document.getElementById('events-img').src = data.events.image;
       }
 
       // --- Gallery Page ---
-      if (path.endsWith('gallery.html')) {
+      if (path.includes('gallery')) {
         const galContainer = document.getElementById('gallery-container');
         if(galContainer) {
           data.gallery.forEach(imgUrl => {
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // --- Contact Page ---
-      if (path.endsWith('contact.html')) {
+      if (path.includes('contact')) {
         document.getElementById('c-address').textContent = data.contact.address;
         document.getElementById('c-phone').textContent = data.contact.phone;
         document.getElementById('c-email').textContent = data.contact.email;
