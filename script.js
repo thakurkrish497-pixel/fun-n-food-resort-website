@@ -1,3 +1,10 @@
+const SUPABASE_URL = 'https://sakchnfmmddkaspwglow.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_6zz7LlNM3v5I1qwqdqd1NQ_lX-4GbCB';
+let supabase;
+if (window.supabase) {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menu-toggle');
   const navMenu = document.getElementById('nav-menu');
@@ -24,9 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Fetch Data and Render Content
-  fetch('/data.json')
-    .then(response => response.json())
-    .then(data => {
+  if (!supabase) {
+    console.error("Supabase client not initialized.");
+    return;
+  }
+  
+  supabase.from('website_data').select('content').eq('id', 1).single()
+    .then(({ data: dbData, error }) => {
+      if (error) throw error;
+      const data = dbData.content;
       const path = window.location.pathname;
 
       // --- Common Elements (Footer) ---
@@ -162,18 +175,22 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             try {
-              const res = await fetch('/api/enquiry', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-              });
-              if(res.ok) {
+              const { error } = await supabase.from('enquiries').insert([{
+                first_name: payload.firstName,
+                last_name: payload.lastName,
+                email: payload.email,
+                phone: payload.phone,
+                message: payload.message
+              }]);
+              
+              if(!error) {
                 msgBox.textContent = 'Thank you! Your enquiry has been submitted.';
                 msgBox.style.color = 'green';
                 form.reset();
               } else {
                 msgBox.textContent = 'Error submitting enquiry. Please try again.';
                 msgBox.style.color = 'red';
+                console.error(error);
               }
             } catch(e) {
               msgBox.textContent = 'Network error. Please try again.';

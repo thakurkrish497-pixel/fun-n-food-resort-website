@@ -1,3 +1,10 @@
+const SUPABASE_URL = 'https://sakchnfmmddkaspwglow.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_6zz7LlNM3v5I1qwqdqd1NQ_lX-4GbCB';
+let supabase;
+if (window.supabase) {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const loginScreen = document.getElementById('login-screen');
   const dashboardScreen = document.getElementById('dashboard-screen');
@@ -7,15 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveAllBtn = document.getElementById('save-all-btn');
   const saveMsg = document.getElementById('save-msg');
 
-  // Check auth state
-  const token = sessionStorage.getItem('adminToken');
-  if (token) {
-    showDashboard();
+  if (!supabase) {
+    loginError.textContent = "Supabase CDN not loaded.";
+    return;
   }
 
-  // Strict security: Clear token when the page unloads
-  window.addEventListener('beforeunload', () => {
-    sessionStorage.removeItem('adminToken');
+  // Check auth state
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (session) showDashboard();
+  });
+
+  supabase.auth.onAuthStateChange((_event, session) => {
+    if (!session) {
+      loginScreen.style.display = 'flex';
+      dashboardScreen.style.display = 'none';
+    }
   });
 
   // Handle Login
@@ -24,30 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      
-      if (res.ok && data.token) {
-        sessionStorage.setItem('adminToken', data.token);
-        showDashboard();
-      } else {
-        loginError.textContent = data.error || 'Login failed';
-      }
-    } catch (err) {
-      loginError.textContent = 'Server error. Is the Node.js server running?';
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      loginError.textContent = error.message;
+    } else {
+      showDashboard();
     }
   });
 
   // Handle Logout
-  logoutBtn.addEventListener('click', () => {
-    sessionStorage.removeItem('adminToken');
-    loginScreen.style.display = 'flex';
-    dashboardScreen.style.display = 'none';
+  logoutBtn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
   });
 
   // Sidebar navigation
@@ -73,13 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
     dashboardScreen.style.display = 'flex';
     
     try {
-      const res = await fetch('/api/data');
-      if (res.ok) {
-        siteData = await res.json();
-        populateForm(siteData);
+      const { data, error } = await supabase.from('website_data').select('content').eq('id', 1).single();
+      if (error) throw error;
+      
+      // If content is empty (new DB), init with empty structure to avoid errors
+      siteData = data.content || {};
+      if(!siteData.hero) {
+         siteData = { hero:{}, brands:{items:[]}, facilities:{items:[]}, dining:{}, events:{}, contact:{}, gallery:[] };
       }
+      populateForm(siteData);
     } catch (err) {
-      console.error('Failed to load data', err);
+      console.error('Failed to load data from Supabase', err);
     }
   }
 
@@ -177,22 +181,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('gallery-upload').addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const formData = new FormData();
-    formData.append('image', file);
     
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}` },
-        body: formData
-      });
-      const data = await res.json();
-      if (res.ok && data.url) {
-        siteData.gallery.push(data.url);
-        renderGallery();
-        document.getElementById('gallery-upload').value = '';
-      }
-    } catch (err) {}
+      const fileExt = file.name.split('.').pop();
+      const fileName = `gallery_${Date.now()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage.from('website-images').upload(fileName, file);
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage.from('website-images').getPublicUrl(fileName);
+      siteData.gallery.push(publicUrl);
+      renderGallery();
+      document.getElementById('gallery-upload').value = '';
+    } catch (err) {
+      alert("Error uploading gallery image: " + err.message);
+    }
   });
 
   // Handle Save All
@@ -232,19 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
     siteData.contact.mapUrl = document.getElementById('contact-map').value;
 
     try {
-      const res = await fetch('/api/data', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}`
-        },
-        body: JSON.stringify(siteData)
-      });
-      if (res.ok) {
+      const { error } = await supabase.from('website_data').upsert({ id: 1, content: siteData, updated_at: new Date().toISOString() });
+      if (!error) {
         saveMsg.textContent = 'Changes saved successfully!';
         setTimeout(() => saveMsg.textContent = '', 3000);
       } else {
-        saveMsg.textContent = 'Error saving changes.';
+        saveMsg.textContent = 'Error saving changes: ' + error.message;
         saveMsg.style.color = 'red';
       }
     } catch (err) {
@@ -261,26 +256,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('image', file);
     const prev = document.getElementById(previewId);
     prev.innerHTML = 'Uploading...';
 
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}` },
-        body: formData
-      });
-      const data = await res.json();
-      if (res.ok && data.url) {
-        document.getElementById(inputId).value = data.url;
-        prev.innerHTML = `<img src="${data.url}" width="200">`;
-      } else {
-        prev.innerHTML = `<span style="color:red">Upload failed</span>`;
-      }
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${inputId}_${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage.from('website-images').upload(fileName, file);
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage.from('website-images').getPublicUrl(fileName);
+      
+      document.getElementById(inputId).value = publicUrl;
+      prev.innerHTML = `<img src="${publicUrl}" width="200">`;
     } catch (err) {
-      prev.innerHTML = `<span style="color:red">Error</span>`;
+      prev.innerHTML = `<span style="color:red">Error: ${err.message}</span>`;
     }
   };
   
@@ -291,33 +282,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const list = document.getElementById('enquiries-list');
     list.innerHTML = 'Loading...';
     try {
-      const res = await fetch('/api/enquiries', {
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('adminToken')}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        list.innerHTML = '';
-        if(data.length === 0) {
-          list.innerHTML = '<p>No enquiries yet.</p>';
-          return;
-        }
-        data.reverse().forEach(enq => {
-          const div = document.createElement('div');
-          div.style.border = '1px solid #ddd';
-          div.style.padding = '15px';
-          div.style.marginBottom = '15px';
-          div.style.borderRadius = '4px';
-          div.innerHTML = `
-            <strong>${enq.firstName} ${enq.lastName}</strong> (<a href="mailto:${enq.email}">${enq.email}</a>)<br>
-            <small>${new Date(enq.date).toLocaleString()}</small>
-            <p><strong>Phone:</strong> ${enq.phone}</p>
-            <p style="background: #f9f9f9; padding: 10px; margin-top: 10px;">${enq.message}</p>
-          `;
-          list.appendChild(div);
-        });
+      const { data, error } = await supabase.from('enquiries').select('*').order('date', { ascending: false });
+      if (error) throw error;
+      
+      list.innerHTML = '';
+      if(!data || data.length === 0) {
+        list.innerHTML = '<p>No enquiries yet.</p>';
+        return;
       }
+      data.forEach(enq => {
+        const div = document.createElement('div');
+        div.style.border = '1px solid #ddd';
+        div.style.padding = '15px';
+        div.style.marginBottom = '15px';
+        div.style.borderRadius = '4px';
+        div.innerHTML = `
+          <strong>${enq.first_name} ${enq.last_name || ''}</strong> (<a href="mailto:${enq.email}">${enq.email}</a>)<br>
+          <small>${new Date(enq.date).toLocaleString()}</small>
+          <p><strong>Phone:</strong> ${enq.phone || 'N/A'}</p>
+          <p style="background: #f9f9f9; padding: 10px; margin-top: 10px;">${enq.message || ''}</p>
+        `;
+        list.appendChild(div);
+      });
     } catch(e) {
-      list.innerHTML = 'Failed to load enquiries.';
+      list.innerHTML = 'Failed to load enquiries: ' + e.message;
     }
   }
 });
