@@ -1,0 +1,25 @@
+{
+  "name": "fun-n-food-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "admin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thakurkrish497-pixel/fun-n-food-resort-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/thakurkrish497-pixel/fun-n-food-resort-website/issues"
+  },
+  "homepage": "https://github.com/thakurkrish497-pixel/fun-n-food-resort-website#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.109.0",
+    "razorpay": "^2.9.6"
+  }
+}

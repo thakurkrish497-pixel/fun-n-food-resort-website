@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Room | Fun N Food Resort</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Razorpay Checkout JS -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    .booking-container {
+      max-width: 900px;
+      margin: 120px auto 50px;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: var(--font-body);
+    }
+    .room-preview {
+      background: var(--light-bg);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .room-preview img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      height: 200px;
+      object-fit: cover;
+    }
+    .price-summary {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      text-align: left;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .total-row {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      border-top: 2px solid var(--text-dark);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 768px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header" style="background-color: var(--primary-color);">
+    <div class="logo">Fun N Food</div>
+    <nav class="nav" id="nav-menu">
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+        <li><a href="dining.html" class="nav-link">Dining</a></li>
+        <li><a href="events.html" class="nav-link">Banquets & Events</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="booking-container">
+      <h1 class="section-title text-center" style="margin-bottom: 30px;">Reserve Your Stay</h1>
+      
+      <form id="booking-form">
+        <div class="booking-grid">
+          
+          <!-- Left Column: Guest Details & Dates -->
+          <div>
+            <div class="form-group">
+              <label>Select Room Type</label>
+              <select id="room-select" required>
+                <option value="">Loading rooms...</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Check In Date</label>
+              <input type="date" id="check-in" required min="">
+            </div>
+            
+            <div class="form-group">
+              <label>Check Out Date</label>
+              <input type="date" id="check-out" required min="">
+            </div>
+
+            <div class="form-group">
+              <label>Number of Guests</label>
+              <select id="num-guests" required>
+                <option value="1">1 Adult</option>
+                <option value="2">2 Adults</option>
+                <option value="3">3 Adults (1 Extra Bed)</option>
+                <option value="4">Family (2 Adults, 2 Kids)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="guest-name" required placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="guest-email" required placeholder="john@example.com">
+            </div>
+
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="guest-phone" required placeholder="+91 9000000000">
+            </div>
+          </div>
+
+          <!-- Right Column: Room Preview & Summary -->
+          <div>
+            <div class="room-preview">
+              <img id="preview-img" src="assets/images/new_photos/IMG_3213.JPG.jpeg" alt="Room Preview">
+              <h3 id="preview-title">Select a room</h3>
+              <p id="preview-desc">Details will appear here.</p>
+              
+              <div class="price-summary">
+                <div class="price-row">
+                  <span>Price per night:</span>
+                  <span id="price-night">₹0</span>
+                </div>
+                <div class="price-row">
+                  <span>Number of nights:</span>
+                  <span id="num-nights">0</span>
+                </div>
+                <div class="price-row total-row">
+                  <span>Total Amount:</span>
+                  <span id="total-amount">₹0</span>
+                </div>
+              </div>
+
+              <div id="availability-msg" style="margin-top: 15px; font-weight: bold; color: red;"></div>
+
+              <button type="submit" class="btn btn-primary" id="pay-btn" style="width: 100%; margin-top: 20px;" disabled>
+                Proceed to Payment
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="book.js"></script>
+</body>
+</html>
