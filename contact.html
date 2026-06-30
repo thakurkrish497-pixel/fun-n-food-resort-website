@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Fun N Food</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="page-padding">
+  <header class="header" id="header" style="background-color: var(--primary-color);">
+    <div class="logo">Fun N Food</div>
+    <nav class="nav" id="nav-menu">
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+        <li><a href="dining.html" class="nav-link">Dining</a></li>
+        <li><a href="events.html" class="nav-link">Banquets & Events</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      
+      <div class="contact-layout">
+        <!-- Enquiry Form -->
+        <div class="contact-form-container">
+          <h2 class="section-title" style="text-align:left; font-size: 2rem;">Seeking Event Planning Assistance? Let Us Help!</h2>
+          <form id="enquiry-form" class="enquiry-form">
+            <div class="form-row">
+              <div class="form-field">
+                <input type="text" id="eq-first-name" placeholder="FIRST NAME*" required>
+              </div>
+              <div class="form-field">
+                <input type="text" id="eq-last-name" placeholder="LAST NAME*" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <input type="email" id="eq-email" placeholder="EMAIL*" required>
+              </div>
+              <div class="form-field">
+                <input type="tel" id="eq-phone" placeholder="PHONE NUMBER*" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field" style="width: 100%;">
+                <textarea id="eq-message" placeholder="Your message here" rows="4"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">SUBMIT</button>
+            <div id="enquiry-msg" style="margin-top:10px; font-weight:bold;"></div>
+          </form>
+        </div>
+
+        <!-- Google Location & Info -->
+        <div class="contact-info-container">
+          <h3 style="font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 20px;">Our Property Details</h3>
+          <p><strong><i class="fa-solid fa-location-dot"></i> Address:</strong> <span id="c-address">Loading...</span></p>
+          <p><strong><i class="fa-solid fa-phone"></i> Phone:</strong> <span id="c-phone">Loading...</span></p>
+          <p><strong><i class="fa-solid fa-envelope"></i> Email:</strong> <span id="c-email">Loading...</span></p>
+          
+          <div class="map-container" style="margin-top: 30px; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+            <iframe id="c-map" src="" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>About Fun N Food</h3>
+          <p>A prestigious property of the SKCPL Group — your complete leisure destination in Indore, featuring a thrilling water park, luxurious rooms, multi-cuisine dining, and sprawling marriage gardens.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="privacy.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Cancellation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <p id="footer-address">Khandwa Road, near BSNL Exchange, Tejaji Nagar, Indore, Madhya Pradesh</p>
+          <p><strong>Phone:</strong> +91 94798 00333</p>
+          <p><strong>Email:</strong> funandfoodresort@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Fun N Food Resort (SKCPL Group). All rights reserved.</p>
+        <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Admin Login</a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

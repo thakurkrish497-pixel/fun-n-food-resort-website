@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun N Food Resort | Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="logo">Fun N Food</div>
+    <nav class="nav" id="nav-menu">
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+        <li><a href="dining.html" class="nav-link">Dining</a></li>
+        <li><a href="events.html" class="nav-link">Banquets & Events</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 20px;">
+      <a href="contact.html" style="color: white; font-size: 0.8rem; font-family: var(--font-heading); text-transform: uppercase; font-weight: 600;"><i class="fa-solid fa-location-dot"></i> Location</a>
+      <a href="contact.html" class="btn btn-primary">Book Now</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <img id="hero-bg" src="" alt="Resort Exterior" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 id="hero-title" class="fade-in">A Luxurious Escape</h1>
+    </div>
+    
+    <!-- Booking Widget (Glassmorphism) -->
+    <div class="booking-widget fade-in-up">
+      <div class="booking-field">
+        <label>Check In</label>
+        <input type="date">
+      </div>
+      <div class="booking-field">
+        <label>Check Out</label>
+        <input type="date">
+      </div>
+      <div class="booking-field">
+        <label>Guests</label>
+        <select>
+          <option>1 Adult</option>
+          <option>2 Adults</option>
+          <option>Family</option>
+        </select>
+      </div>
+      <a href="contact.html" class="btn btn-primary">Check Availability</a>
+    </div>
+  </section>
+
+  <!-- Minimalist Intro Section -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="container text-center">
+      <p id="hero-text" class="section-text fade-in" style="max-width: 900px; margin: 0 auto; font-size: 1.25rem; line-height: 1.8; color: var(--text-dark);"></p>
+    </div>
+  </section>
+
+
+  <!-- Facilities Preview -->
+  <section class="section bg-light">
+    <div class="container text-center">
+      <h2 id="fac-title" class="section-title">Loading...</h2>
+      <div class="facilities-grid" id="facilities-container">
+        <!-- Injected via JS -->
+      </div>
+      <a href="facilities.html" class="btn btn-primary" style="margin-top: 40px;">View All Facilities</a>
+    </div>
+  </section>
+
+  <!-- Dining Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="split-layout">
+        <div class="split-text">
+          <h2 id="dining-title" class="section-title" style="text-align: left;">Loading...</h2>
+          <p id="dining-text" class="section-text"></p>
+          <a href="dining.html" class="btn btn-primary" style="margin-top: 20px;">Explore Dining</a>
+        </div>
+        <div class="split-image">
+          <img id="dining-img" src="" alt="Dining">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Preview -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="split-layout" style="flex-direction: row-reverse;">
+        <div class="split-text">
+          <h2 id="events-title" class="section-title" style="text-align: left;">Loading...</h2>
+          <p id="events-text" class="section-text"></p>
+          <a href="events.html" class="btn btn-primary" style="margin-top: 20px;">Plan an Event</a>
+        </div>
+        <div class="split-image">
+          <img id="events-img" src="" alt="Events">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Brands Section (Sayaji Inspired) -->
+  <section id="brands" class="section">
+    <div class="container text-center">
+      <h2 id="brands-title" class="section-title">Our Brands</h2>
+      <p id="brands-text" class="section-text" style="margin-bottom: 40px;"></p>
+      
+      <div class="brands-grid" id="brands-container">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+    <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>About Fun N Food</h3>
+          <p>A prestigious property of the SKCPL Group — your complete leisure destination in Indore, featuring a thrilling water park, luxurious rooms, multi-cuisine dining, and sprawling marriage gardens.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="privacy.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Cancellation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <p id="footer-address">Khandwa Road, near BSNL Exchange, Tejaji Nagar, Indore, Madhya Pradesh</p>
+          <p><strong>Phone:</strong> +91 94798 00333</p>
+          <p><strong>Email:</strong> funandfoodresort@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Fun N Food Resort (SKCPL Group). All rights reserved.</p>
+        <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Admin Login</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

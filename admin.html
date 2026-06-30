@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Fun N Food</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="background-color: var(--bg-color);">
+
+  <!-- Login Screen -->
+  <div class="login-container" id="login-screen">
+    <div class="login-box">
+      <h2><i class="fa-solid fa-lock"></i> Admin Login</h2>
+      <div id="login-error" class="error-message"></div>
+      <form id="login-form">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+      </form>
+      <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to website</a>
+    </div>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div class="dashboard-container" id="dashboard-screen" style="display: none;">
+    <header class="admin-header">
+      <div class="admin-logo">Fun N Food CMS</div>
+      <div class="admin-actions">
+        <a href="index.html" target="_blank" class="btn btn-outline" style="border-color: #ddd; color: #333;">View Site</a>
+        <button id="logout-btn" class="btn btn-outline" style="border-color: #ddd; color: #333;">Logout</button>
+      </div>
+    </header>
+
+    <div class="admin-content">
+      <div class="admin-sidebar">
+        <ul class="admin-nav">
+          <li class="active" data-target="section-hero">Hero Section</li>
+          <li data-target="section-brands">Our Brands</li>
+          <li data-target="section-facilities">Facilities</li>
+          <li data-target="section-dining">Dining</li>
+          <li data-target="section-events">Events</li>
+          <li data-target="section-gallery">Gallery</li>
+          <li data-target="section-contact">Contact Info</li>
+          <li data-target="section-enquiries" style="border-top: 1px solid #ddd; margin-top: 10px; padding-top: 15px;">Inbox (Enquiries)</li>
+        </ul>
+        <button id="save-all-btn" class="btn btn-primary" style="width: 100%; margin-top: 20px;"><i class="fa-solid fa-save"></i> Save All Changes</button>
+        <div id="save-msg" class="save-msg"></div>
+      </div>
+
+      <div class="admin-main">
+        <form id="cms-form">
+          <!-- Hero -->
+          <div class="cms-section active" id="section-hero">
+            <h3>Hero Section</h3>
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" id="hero-title" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Text</label>
+              <textarea id="hero-text" class="cms-input" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Background Image</label>
+              <div class="image-preview" id="hero-bg-preview"></div>
+              <input type="hidden" id="hero-bg">
+              <input type="file" id="hero-bg-upload" accept="image/*">
+            </div>
+          </div>
+
+          <!-- Our Brands -->
+          <div class="cms-section" id="section-brands">
+            <h3>Our Brands</h3>
+            <div class="form-group">
+              <label>Section Title</label>
+              <input type="text" id="brands-title" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Section Text</label>
+              <textarea id="brands-text" class="cms-input" rows="2"></textarea>
+            </div>
+            <hr>
+            <h4>Brand Items</h4>
+            <div id="brands-list"></div>
+          </div>
+
+          <!-- Facilities -->
+          <div class="cms-section" id="section-facilities">
+            <h3>Facilities Overview</h3>
+            <div class="form-group">
+              <label>Section Title</label>
+              <input type="text" id="fac-title" class="cms-input">
+            </div>
+            <hr>
+            <h4>Facility Items</h4>
+            <div id="facilities-list"></div>
+          </div>
+
+          <!-- Dining -->
+          <div class="cms-section" id="section-dining">
+            <h3>Dining Section</h3>
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" id="dining-title" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Text</label>
+              <textarea id="dining-text" class="cms-input" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Image</label>
+              <div class="image-preview" id="dining-img-preview"></div>
+              <input type="hidden" id="dining-img">
+              <input type="file" id="dining-upload" accept="image/*">
+            </div>
+          </div>
+
+          <!-- Events -->
+          <div class="cms-section" id="section-events">
+            <h3>Events Section</h3>
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" id="events-title" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Text</label>
+              <textarea id="events-text" class="cms-input" rows="6"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Image</label>
+              <div class="image-preview" id="events-img-preview"></div>
+              <input type="hidden" id="events-img">
+              <input type="file" id="events-upload" accept="image/*">
+            </div>
+          </div>
+          
+          <!-- Gallery -->
+          <div class="cms-section" id="section-gallery">
+            <h3>Gallery Manager</h3>
+            <div class="form-group">
+              <label>Upload New Photo to Gallery</label>
+              <input type="file" id="gallery-upload" accept="image/*">
+            </div>
+            <div id="gallery-list" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="cms-section" id="section-contact">
+            <h3>Contact Details & Map</h3>
+            <div class="form-group">
+              <label>Address</label>
+              <input type="text" id="contact-address" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" id="contact-phone" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" id="contact-email" class="cms-input">
+            </div>
+            <div class="form-group">
+              <label>Google Maps Embed URL</label>
+              <textarea id="contact-map" class="cms-input" rows="3" placeholder="https://www.google.com/maps/embed?..."></textarea>
+            </div>
+          </div>
+        </form>
+        
+        <!-- Enquiries (Not part of form) -->
+        <div class="cms-section" id="section-enquiries">
+          <h3>Inbox (Enquiries)</h3>
+          <button id="refresh-enquiries-btn" class="btn btn-outline" style="margin-bottom: 20px;"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+          <div id="enquiries-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
