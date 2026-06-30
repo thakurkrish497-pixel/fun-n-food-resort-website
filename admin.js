@@ -51,18 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Sidebar navigation
-  document.querySelectorAll('.admin-nav li').forEach(item => {
-    item.addEventListener('click', (e) => {
-      document.querySelectorAll('.admin-nav li').forEach(li => li.classList.remove('active'));
-      document.querySelectorAll('.cms-section').forEach(sec => sec.classList.remove('active'));
+  const navItems = document.querySelectorAll('.admin-nav li');
+  const sections = document.querySelectorAll('.cms-section, .admin-tab');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      navItems.forEach(nav => nav.classList.remove('active'));
+      sections.forEach(sec => sec.style.display = 'none');
       
-      e.target.classList.add('active');
-      const targetId = e.target.getAttribute('data-target');
-      document.getElementById(targetId).classList.add('active');
+      item.classList.add('active');
+      const targetId = item.dataset.target;
+      const targetEl = document.getElementById(targetId);
+      if(targetEl) targetEl.style.display = 'block';
       
-      if (targetId === 'section-enquiries') {
-        loadEnquiries();
-      }
+      if(targetId === 'section-enquiries') fetchEnquiries();
+      if(targetId === 'bookings-tab') fetchBookings();
+      if(targetId === 'rooms-tab') fetchRooms();
     });
   });
 
@@ -308,4 +311,78 @@ document.addEventListener('DOMContentLoaded', () => {
       list.innerHTML = 'Failed to load enquiries: ' + e.message;
     }
   }
+
+  // --- Fetch Bookings ---
+  async function fetchBookings() {
+    const list = document.getElementById('bookings-list');
+    list.innerHTML = 'Loading...';
+    try {
+      const { data, error } = await supabaseClient
+        .from('bookings')
+        .select('*, rooms(name)')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      
+      list.innerHTML = '';
+      if (data.length === 0) {
+        list.innerHTML = '<p>No bookings found.</p>';
+        return;
+      }
+      
+      data.forEach(bk => {
+        const div = document.createElement('div');
+        div.className = 'enquiry-card';
+        div.innerHTML = `
+          <div class="eq-header">
+            <strong>${bk.guest_name}</strong> - ${bk.payment_status.toUpperCase()}
+          </div>
+          <div class="eq-body">
+            <p><strong>Room:</strong> ${bk.rooms ? bk.rooms.name : 'Unknown Room'}</p>
+            <p><strong>Dates:</strong> ${bk.check_in} to ${bk.check_out} (${bk.num_guests} guests)</p>
+            <p><strong>Contact:</strong> ${bk.guest_email} | ${bk.guest_phone}</p>
+            <p><strong>Amount Paid:</strong> ₹${bk.total_amount}</p>
+            <p><strong>Razorpay Order ID:</strong> ${bk.razorpay_order_id}</p>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+    } catch(err) {
+      console.error(err);
+      list.innerHTML = '<p style="color:red">Failed to load bookings.</p>';
+    }
+  }
+
+  // --- Fetch Rooms ---
+  async function fetchRooms() {
+    const list = document.getElementById('rooms-list');
+    list.innerHTML = 'Loading...';
+    try {
+      const { data, error } = await supabaseClient.from('rooms').select('*').order('created_at', { ascending: true });
+      if (error) throw error;
+      
+      list.innerHTML = '';
+      if (data.length === 0) {
+        list.innerHTML = '<p>No rooms found. Please add a room.</p>';
+      }
+      
+      data.forEach(room => {
+        const div = document.createElement('div');
+        div.style.border = '1px solid #ddd';
+        div.style.padding = '15px';
+        div.style.borderRadius = '8px';
+        div.innerHTML = `
+          <h3>${room.name}</h3>
+          <p>${room.description}</p>
+          <p><strong>Price:</strong> ₹${room.price_per_night} / night</p>
+          <p><strong>Inventory:</strong> ${room.total_inventory} rooms total</p>
+          <img src="${room.image_url}" width="150" style="margin-top: 10px; border-radius: 5px;">
+        `;
+        list.appendChild(div);
+      });
+    } catch(err) {
+      console.error(err);
+      list.innerHTML = '<p style="color:red">Failed to load rooms.</p>';
+    }
+  }
+
 });

@@ -51,6 +51,8 @@
           <li data-target="section-events">Events</li>
           <li data-target="section-gallery">Gallery</li>
           <li data-target="section-contact">Contact Info</li>
+          <li data-target="bookings-tab"><i class="fa-solid fa-calendar-check"></i> Bookings</li>
+          <li data-target="rooms-tab"><i class="fa-solid fa-bed"></i> Rooms</li>
           <li data-target="section-enquiries" style="border-top: 1px solid #ddd; margin-top: 10px; padding-top: 15px;">Inbox (Enquiries)</li>
         </ul>
         <button id="save-all-btn" class="btn btn-primary" style="width: 100%; margin-top: 20px;"><i class="fa-solid fa-save"></i> Save All Changes</button>
@@ -176,6 +178,31 @@
           </div>
         </form>
         
+        <!-- Bookings Tab -->
+        <div id="bookings-tab" class="admin-tab" style="display: none;">
+          <div class="panel-header">
+            <h2>Recent Bookings</h2>
+          </div>
+          <div class="panel-content">
+            <div id="bookings-list" class="enquiries-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Rooms Tab -->
+        <div id="rooms-tab" class="admin-tab" style="display: none;">
+          <div class="panel-header">
+            <h2>Room Inventory & Pricing</h2>
+            <button class="btn btn-primary" id="add-room-btn"><i class="fa-solid fa-plus"></i> Add Room</button>
+          </div>
+          <div class="panel-content">
+            <div id="rooms-list" style="display: grid; gap: 20px;">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
         <!-- Enquiries (Not part of form) -->
         <div class="cms-section" id="section-enquiries">
           <h3>Inbox (Enquiries)</h3>
