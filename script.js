@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Fetch Data and Render Content
-  fetch('/api/data')
+  fetch('/data.json')
     .then(response => response.json())
     .then(data => {
       const path = window.location.pathname;
