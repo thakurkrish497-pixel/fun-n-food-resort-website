@@ -1,8 +1,8 @@
 const SUPABASE_URL = 'https://sakchnfmmddkaspwglow.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_6zz7LlNM3v5I1qwqdqd1NQ_lX-4GbCB';
-let supabase;
+let supabaseClient;
 if (window.supabase) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,17 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveAllBtn = document.getElementById('save-all-btn');
   const saveMsg = document.getElementById('save-msg');
 
-  if (!supabase) {
+  if (!supabaseClient) {
     loginError.textContent = "Supabase CDN not loaded.";
     return;
   }
 
   // Check auth state
-  supabase.auth.getSession().then(({ data: { session } }) => {
+  supabaseClient.auth.getSession().then(({ data: { session } }) => {
     if (session) showDashboard();
   });
 
-  supabase.auth.onAuthStateChange((_event, session) => {
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
     if (!session) {
       loginScreen.style.display = 'flex';
       dashboardScreen.style.display = 'none';
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) {
       loginError.textContent = error.message;
     } else {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle Logout
   logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
+    await supabaseClient.auth.signOut();
   });
 
   // Sidebar navigation
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dashboardScreen.style.display = 'flex';
     
     try {
-      const { data, error } = await supabase.from('website_data').select('content').eq('id', 1).single();
+      const { data, error } = await supabaseClient.from('website_data').select('content').eq('id', 1).single();
       if (error) throw error;
       
       // If content is empty (new DB), init with empty structure to avoid errors
@@ -185,10 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `gallery_${Date.now()}.${fileExt}`;
-      const { error: uploadError } = await supabase.storage.from('website-images').upload(fileName, file);
+      const { error: uploadError } = await supabaseClient.storage.from('website-images').upload(fileName, file);
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage.from('website-images').getPublicUrl(fileName);
+      const { data: { publicUrl } } = supabaseClient.storage.from('website-images').getPublicUrl(fileName);
       siteData.gallery.push(publicUrl);
       renderGallery();
       document.getElementById('gallery-upload').value = '';
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     siteData.contact.mapUrl = document.getElementById('contact-map').value;
 
     try {
-      const { error } = await supabase.from('website_data').upsert({ id: 1, content: siteData, updated_at: new Date().toISOString() });
+      const { error } = await supabaseClient.from('website_data').upsert({ id: 1, content: siteData, updated_at: new Date().toISOString() });
       if (!error) {
         saveMsg.textContent = 'Changes saved successfully!';
         setTimeout(() => saveMsg.textContent = '', 3000);
@@ -263,10 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const fileExt = file.name.split('.').pop();
       const fileName = `${inputId}_${Date.now()}.${fileExt}`;
       
-      const { error: uploadError } = await supabase.storage.from('website-images').upload(fileName, file);
+      const { error: uploadError } = await supabaseClient.storage.from('website-images').upload(fileName, file);
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage.from('website-images').getPublicUrl(fileName);
+      const { data: { publicUrl } } = supabaseClient.storage.from('website-images').getPublicUrl(fileName);
       
       document.getElementById(inputId).value = publicUrl;
       prev.innerHTML = `<img src="${publicUrl}" width="200">`;
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const list = document.getElementById('enquiries-list');
     list.innerHTML = 'Loading...';
     try {
-      const { data, error } = await supabase.from('enquiries').select('*').order('date', { ascending: false });
+      const { data, error } = await supabaseClient.from('enquiries').select('*').order('date', { ascending: false });
       if (error) throw error;
       
       list.innerHTML = '';

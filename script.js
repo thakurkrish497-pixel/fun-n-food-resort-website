@@ -1,8 +1,8 @@
 const SUPABASE_URL = 'https://sakchnfmmddkaspwglow.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_6zz7LlNM3v5I1qwqdqd1NQ_lX-4GbCB';
-let supabase;
+let supabaseClient;
 if (window.supabase) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,12 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Fetch Data and Render Content
-  if (!supabase) {
+  if (!supabaseClient) {
     console.error("Supabase client not initialized.");
     return;
   }
   
-  supabase.from('website_data').select('content').eq('id', 1).single()
+  supabaseClient.from('website_data').select('content').eq('id', 1).single()
     .then(({ data: dbData, error }) => {
       if (error) throw error;
       const data = dbData.content;
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             try {
-              const { error } = await supabase.from('enquiries').insert([{
+              const { error } = await supabaseClient.from('enquiries').insert([{
                 first_name: payload.firstName,
                 last_name: payload.lastName,
                 email: payload.email,
