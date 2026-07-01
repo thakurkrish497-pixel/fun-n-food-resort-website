@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
 const supabase = createClient(
-  process.env.SUPABASE_URL || 'https://sakchnfmmddkaspwglow.supabase.co',
+  process.env.SUPABASE_URL || 'https://shemnvgjpwetoljxrkjw.supabase.co',
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 

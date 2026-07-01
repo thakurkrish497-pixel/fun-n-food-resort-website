@@ -16,7 +16,7 @@ VALUES (
   'Luxurious air-conditioned room with modern amenities, premium bedding, and a peaceful ambiance.', 
   3500.00, 
   10, 
-  'https://sakchnfmmddkaspwglow.supabase.co/storage/v1/object/public/website-images/gallery_1700000000000.jpeg'
+  'https://shemnvgjpwetoljxrkjw.supabase.co/storage/v1/object/public/website-images/gallery_1700000000000.jpeg'
 );
 
 -- 3. Room Security

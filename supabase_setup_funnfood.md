@@ -1,6 +1,6 @@
 # Supabase Setup Instructions (Fun N Food Website)
 
-Since we are moving to Vercel, we need a database to store your website content, images, and enquiries. Please follow these steps in your Supabase dashboard (`https://sakchnfmmddkaspwglow.supabase.co`).
+Since we are moving to Vercel, we need a database to store your website content, images, and enquiries. Please follow these steps in your Supabase dashboard (`https://shemnvgjpwetoljxrkjw.supabase.co`).
 
 ### Step 1: Create the Database Tables
 1. Go to your Supabase project dashboard: [https://supabase.com/dashboard](https://supabase.com/dashboard)
