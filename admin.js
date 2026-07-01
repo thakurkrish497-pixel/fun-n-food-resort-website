@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.deleteGalleryImage = function(index) {
     siteData.gallery.splice(index, 1);
     renderGallery();
+    document.getElementById('save-all-btn').click(); // Auto-save
   };
   
   document.getElementById('gallery-upload').addEventListener('change', async (e) => {
@@ -200,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
       siteData.gallery.push(publicUrl);
       renderGallery();
       document.getElementById('gallery-upload').value = '';
+      document.getElementById('save-all-btn').click(); // Auto-save
     } catch (err) {
       alert("Error uploading gallery image: " + err.message);
     }
@@ -278,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       document.getElementById(inputId).value = publicUrl;
       prev.innerHTML = `<img src="${publicUrl}" width="200">`;
+      document.getElementById('save-all-btn').click(); // Auto-save on image upload
     } catch (err) {
       prev.innerHTML = `<span style="color:red">Error: ${err.message}</span>`;
     }
