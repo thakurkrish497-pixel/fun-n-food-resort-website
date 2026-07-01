@@ -2,7 +2,12 @@ const SUPABASE_URL = 'https://shemnvgjpwetoljxrkjw.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_dkdAC8Q-78JEZmWm2B3IEg_frXP3JdH';
 let supabaseClient;
 if (window.supabase) {
-  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      storage: window.sessionStorage,
+      persistSession: true
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
