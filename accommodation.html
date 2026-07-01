@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accommodation | Fun N Food</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="page-padding">
+  <header class="header" id="header" style="background-color: var(--primary-color);">
+    <div class="logo">Fun N Food</div>
+    <nav class="nav" id="nav-menu">
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="accommodation.html" class="nav-link active">Accommodation</a></li>
+        <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+        <li><a href="dining.html" class="nav-link">Dining</a></li>
+        <li><a href="events.html" class="nav-link">Banquets & Events</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 20px;">
+      <a href="contact.html" style="color: white; font-size: 0.8rem; font-family: var(--font-heading); text-transform: uppercase; font-weight: 600;"><i class="fa-solid fa-location-dot"></i> Location</a>
+      <a href="book.html" class="btn btn-primary">Book Now</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+  </header>
+
+  <!-- Accommodation Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="split-layout">
+        <div class="split-text">
+          <h2 id="acc-title" class="section-title" style="text-align: left;">Luxurious Stay</h2>
+          <p id="acc-text" class="section-text">
+            Experience comfort and luxury in our elegantly designed rooms. Whether you are here for a relaxing weekend getaway, a family vacation, or attending a grand wedding, our accommodations offer the perfect retreat. Each room is equipped with modern amenities to ensure your stay is memorable. Wake up to beautiful views and enjoy our world-class hospitality right at your doorstep.
+          </p>
+          <a href="book.html" class="btn btn-primary" style="margin-top: 20px;">Book a Room</a>
+        </div>
+        <div class="split-image">
+          <img id="acc-img-interior" src="assets/images/0A9A3945.JPG" alt="Room Interior">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-light">
+    <div class="container">
+      <div class="split-layout" style="flex-direction: row-reverse;">
+        <div class="split-text">
+          <h2 class="section-title" style="text-align: left;">Serene Surroundings</h2>
+          <p class="section-text">
+            Our rooms are nestled within lush green gardens, offering a tranquil environment away from the city's hustle. Step outside your room to enjoy a peaceful walk or simply relax in the serene surroundings. We ensure that your stay is not only comfortable but also rejuvenating.
+          </p>
+        </div>
+        <div class="split-image">
+          <img id="acc-img-exterior" src="assets/images/0A9A3835.JPG" alt="Room Exterior">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>About Fun N Food</h3>
+          <p>A prestigious property of the SKCPL Group — your complete leisure destination in Indore, featuring a thrilling water park, luxurious rooms, multi-cuisine dining, and sprawling marriage gardens.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="accommodation.html">Accommodation</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="dining.html">Dining</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="privacy.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Cancellation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <p id="footer-address">Khandwa Road, near BSNL Exchange, Tejaji Nagar, Indore, Madhya Pradesh</p>
+          <p><strong>Phone:</strong> +91 94798 00333</p>
+          <p><strong>Email:</strong> funandfoodresort@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Fun N Food Resort (SKCPL Group). All rights reserved.</p>
+        <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Admin Login</a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -40,6 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(({ data: dbData, error }) => {
       if (error) throw error;
       const data = dbData.content;
+      
+      // --- Override Images with New High-Quality Photos ---
+      if (data.dining) data.dining.image = 'assets/images/0A9A3777.JPG';
+      if (data.events) data.events.image = 'assets/images/0A9A3816.JPG';
+      data.gallery = [
+        'assets/images/0A9A3740.JPG',
+        'assets/images/0A9A3757.JPG',
+        'assets/images/0A9A3777.JPG',
+        'assets/images/0A9A3799.JPG',
+        'assets/images/0A9A3801.JPG',
+        'assets/images/0A9A3812.JPG',
+        'assets/images/0A9A3816.JPG',
+        'assets/images/0A9A3820.JPG',
+        'assets/images/0A9A3835.JPG',
+        'assets/images/0A9A3945.JPG'
+      ];
+      if (data.facilities && data.facilities.items && data.facilities.items.length >= 3) {
+          data.facilities.items[0].image = 'assets/images/0A9A3777.JPG';
+          data.facilities.items[1].image = 'assets/images/0A9A3799.JPG';
+          data.facilities.items[2].image = 'assets/images/0A9A3801.JPG';
+      }
+
       const path = window.location.pathname;
 
       // --- Common Elements (Footer) ---
@@ -53,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (path.includes('index') || path === '/' || path.endsWith('/')) {
         document.getElementById('hero-title').textContent = data.hero.title;
         document.getElementById('hero-text').innerHTML = formatText(data.hero.text);
-        document.getElementById('hero-bg').src = data.hero.bgImage;
+        document.getElementById('hero-bg').src = 'assets/images/0A9A3814.JPG'; // Overridden as requested
 
         // Render Brands
         document.getElementById('brands-title').textContent = data.brands.title;
