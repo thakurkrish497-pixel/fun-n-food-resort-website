@@ -760,9 +760,6 @@ a {
   color: var(--deep-blue);
   border-radius: 40px;
   margin: 40px 20px;
-  position: sticky;
-  top: 100px;
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.15); /* Adds a shadow above the card to enhance the stacking depth */
 }
 
 @media (max-width: 768px) {
@@ -1198,4 +1195,11 @@ a {
 .carousel-item:nth-child(12) {
   transform: rotateY(330.0deg) translateZ(400px) rotateY(90deg);
   animation-delay: -55.0s;
+}
+
+/* Sticky Stack Effect for all Sections */
+body > section {
+  position: sticky;
+  top: 90px; /* Right below header */
+  box-shadow: 0 -15px 40px rgba(0,0,0,0.2); /* Deep shadow for 3D stacking effect */
 }
