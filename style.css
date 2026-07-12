@@ -592,13 +592,22 @@ a {
 }
 
 .neon-dot {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-color: var(--acid-green);
-  margin: 0 4px;
-  vertical-align: baseline;
-}
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: var(--acid-green);
+    margin: 0 4px;
+    vertical-align: baseline;
+    position: relative;
+    cursor: crosshair;
+    z-index: 10;
+  }
+  .neon-dot::after {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px; right: -20px; bottom: -20px;
+    z-index: 11;
+  }
 
 .hover-image-reveal {
   position: fixed;
@@ -609,7 +618,7 @@ a {
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.8);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.4s ease;
   z-index: 100;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);

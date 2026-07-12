@@ -71,23 +71,24 @@ document.addEventListener('DOMContentLoaded', () => {
           let targetY = currentY;
           let isHovering = false;
           
-          const neonDots = document.querySelectorAll('.neon-dot');
-          neonDots.forEach(dot => {
-            dot.addEventListener('mouseenter', (e) => {
+          // Use event delegation for neon dots
+          document.addEventListener('mouseover', (e) => {
+            if (e.target && (e.target.classList.contains('neon-dot') || e.target.closest('.neon-dot'))) {
               isHovering = true;
               hoverReveal.classList.add('active');
               targetX = e.clientX;
               targetY = e.clientY;
-              currentX = targetX; // Snap on enter
-              currentY = targetY;
-            });
-            dot.addEventListener('mouseleave', () => {
-              isHovering = false;
-              hoverReveal.classList.remove('active');
-            });
+            }
           });
           
-          window.addEventListener('mousemove', (e) => {
+          document.addEventListener('mouseout', (e) => {
+            if (e.target && (e.target.classList.contains('neon-dot') || e.target.closest('.neon-dot'))) {
+              isHovering = false;
+              hoverReveal.classList.remove('active');
+            }
+          });
+          
+          document.addEventListener('mousemove', (e) => {
             if(isHovering) {
               targetX = e.clientX;
               targetY = e.clientY;
