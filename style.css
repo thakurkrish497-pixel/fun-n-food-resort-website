@@ -200,7 +200,7 @@ a {
   width: 100%;
 }
 
-.header-right {
+.header-actions {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -225,6 +225,8 @@ a {
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
+  color: var(--bg-white);
+  font-size: 1.5rem;
 }
 
 .menu-toggle span {
@@ -552,7 +554,7 @@ a {
   }
   
   #nav-menu.active {
-    max-height: 400px;
+    max-height: 600px;
   }
   
   .nav-list {
@@ -570,8 +572,8 @@ a {
     display: flex;
   }
   
-  .header-right {
-    display: none;
+  .header-actions {
+    display: none !important;
   }
   
   .booking-widget {
@@ -685,6 +687,11 @@ a {
 @media (max-width: 768px) {
   .contact-layout {
     grid-template-columns: 1fr;
+  }
+  
+  .enquiry-form .form-row {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 

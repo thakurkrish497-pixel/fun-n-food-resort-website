@@ -149,3 +149,21 @@
   font-weight: bold;
   color: green;
 }
+
+@media (max-width: 768px) {
+  .admin-content {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .admin-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .admin-main {
+    padding: 15px;
+    overflow-y: visible;
+  }
+}

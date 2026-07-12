@@ -24,9 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Check auth state
+  // Check auth state securely
+  loginScreen.style.display = 'none'; // Hide initially to prevent race conditions
   supabaseClient.auth.getSession().then(({ data: { session } }) => {
-    if (session) showDashboard();
+    if (session && session.user) {
+      showDashboard();
+    } else {
+      loginScreen.style.display = 'flex';
+    }
   });
 
   supabaseClient.auth.onAuthStateChange((_event, session) => {
@@ -39,14 +44,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle Login
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
+    loginError.textContent = "Logging in...";
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
-    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) {
-      loginError.textContent = error.message;
-    } else {
-      showDashboard();
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        loginError.textContent = error.message;
+        return;
+      }
+      
+      if (data && data.session && data.user) {
+        loginError.textContent = "";
+        showDashboard();
+      } else {
+        loginError.textContent = "Invalid login credentials.";
+      }
+    } catch (err) {
+      loginError.textContent = "An error occurred during login.";
     }
   });
 
