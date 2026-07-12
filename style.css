@@ -1196,10 +1196,3 @@ a {
   transform: rotateY(330.0deg) translateZ(400px) rotateY(90deg);
   animation-delay: -55.0s;
 }
-
-/* Sticky Stack Effect for all Sections */
-body > section {
-  position: sticky;
-  top: 90px; /* Right below header */
-  box-shadow: 0 -15px 40px rgba(0,0,0,0.2); /* Deep shadow for 3D stacking effect */
-}
