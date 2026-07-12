@@ -71,23 +71,27 @@ document.addEventListener('DOMContentLoaded', () => {
           let targetY = currentY;
           let isHovering = false;
           
-          statementSection.addEventListener('mouseenter', (e) => {
-            isHovering = true;
-            hoverReveal.classList.add('active');
-            targetX = e.clientX;
-            targetY = e.clientY;
-            currentX = targetX; // Snap on enter
-            currentY = targetY;
+          const neonDots = document.querySelectorAll('.neon-dot');
+          neonDots.forEach(dot => {
+            dot.addEventListener('mouseenter', (e) => {
+              isHovering = true;
+              hoverReveal.classList.add('active');
+              targetX = e.clientX;
+              targetY = e.clientY;
+              currentX = targetX; // Snap on enter
+              currentY = targetY;
+            });
+            dot.addEventListener('mouseleave', () => {
+              isHovering = false;
+              hoverReveal.classList.remove('active');
+            });
           });
           
-          statementSection.addEventListener('mouseleave', () => {
-            isHovering = false;
-            hoverReveal.classList.remove('active');
-          });
-          
-          statementSection.addEventListener('mousemove', (e) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
+          window.addEventListener('mousemove', (e) => {
+            if(isHovering) {
+              targetX = e.clientX;
+              targetY = e.clientY;
+            }
           });
           
           // Smooth Linear Interpolation Animation
