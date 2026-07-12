@@ -43,8 +43,8 @@ img {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-color);
-  color: var(--text-dark);
+  background-color: var(--deep-blue);
+  color: var(--bg-color);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -744,7 +744,19 @@ a {
 
 /* ------------------- Intro Section ------------------- */
 .section {
-  padding: 100px 20px;
+  padding: 80px 40px;
+  background-color: var(--cream-block);
+  color: var(--deep-blue);
+  border-radius: 40px;
+  margin: 40px 20px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 20px;
+    border-radius: 20px;
+    margin: 20px 10px;
+  }
 }
 
 .container {
@@ -992,9 +1004,7 @@ a {
   padding-bottom: 50px;
 }
 
-.bg-light {
-  background-color: #f8f6f5;
-}
+
 
 /* Brands Grid */
 .brands-grid {
