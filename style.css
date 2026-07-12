@@ -46,7 +46,7 @@ body {
   background-color: var(--deep-blue);
   color: var(--bg-color);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ------------------- Typography ------------------- */
@@ -760,6 +760,9 @@ a {
   color: var(--deep-blue);
   border-radius: 40px;
   margin: 40px 20px;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15); /* Adds a shadow above the card to enhance the stacking depth */
 }
 
 @media (max-width: 768px) {
