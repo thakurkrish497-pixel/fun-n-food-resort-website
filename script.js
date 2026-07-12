@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
           
           // Use event delegation for neon dots
           document.addEventListener('mouseover', (e) => {
-            if (e.target && (e.target.classList.contains('neon-dot') || e.target.closest('.neon-dot'))) {
+            const dot = e.target.closest ? e.target.closest('.neon-dot') : null;
+            if (dot) {
               isHovering = true;
               hoverReveal.classList.add('active');
               targetX = e.clientX;
@@ -82,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           
           document.addEventListener('mouseout', (e) => {
-            if (e.target && (e.target.classList.contains('neon-dot') || e.target.closest('.neon-dot'))) {
+            const dot = e.target.closest ? e.target.closest('.neon-dot') : null;
+            if (dot) {
               isHovering = false;
               hoverReveal.classList.remove('active');
             }
