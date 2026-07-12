@@ -52,9 +52,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // --- Index Page ---
       if (path.includes('index') || path === '/' || path.endsWith('/')) {
-        document.getElementById('hero-title').textContent = data.hero.title;
-        document.getElementById('hero-text').innerHTML = formatText(data.hero.text);
-        document.getElementById('hero-bg').src = data.hero.bgImage;
+        const hTitle = document.getElementById('hero-title');
+        const hText = document.getElementById('hero-text');
+        const hBg = document.getElementById('hero-bg');
+        
+        if (hTitle && hTitle.classList.contains('large-title') === false) hTitle.textContent = data.hero.title;
+        if (hText) hText.innerHTML = formatText(data.hero.text);
+        if (hBg) hBg.src = data.hero.bgImage;
+
+        // Interactive Statement Hover Logic
+        const statementSection = document.getElementById('statement-section');
+        const hoverReveal = document.getElementById('hover-reveal');
+        
+        if (statementSection && hoverReveal) {
+          let currentX = window.innerWidth / 2;
+          let currentY = window.innerHeight / 2;
+          let targetX = currentX;
+          let targetY = currentY;
+          let isHovering = false;
+          
+          statementSection.addEventListener('mouseenter', (e) => {
+            isHovering = true;
+            hoverReveal.classList.add('active');
+            targetX = e.clientX;
+            targetY = e.clientY;
+            currentX = targetX; // Snap on enter
+            currentY = targetY;
+          });
+          
+          statementSection.addEventListener('mouseleave', () => {
+            isHovering = false;
+            hoverReveal.classList.remove('active');
+          });
+          
+          statementSection.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+          });
+          
+          // Smooth Linear Interpolation Animation
+          function animateCursor() {
+            if (isHovering) {
+              currentX += (targetX - currentX) * 0.08;
+              currentY += (targetY - currentY) * 0.08;
+              
+              // Calculate a slight rotation based on movement speed
+              const speedX = targetX - currentX;
+              const rotation = speedX * 0.05;
+              
+              hoverReveal.style.transform = `translate(-50%, -50%) translate(${currentX}px, ${currentY}px) rotate(${rotation}deg)`;
+            }
+            requestAnimationFrame(animateCursor);
+          }
+          
+          // Reset initial transform styling
+          hoverReveal.style.left = '0px';
+          hoverReveal.style.top = '0px';
+          animateCursor();
+        }
 
         // Render Brands
         document.getElementById('brands-title').textContent = data.brands.title;

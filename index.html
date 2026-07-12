@@ -5,69 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fun N Food Resort | Home</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="header" id="header">
-    <div class="logo">Fun N Food</div>
-    <nav class="nav" id="nav-menu">
-      <ul class="nav-list">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link">About Us</a></li>
-        <li><a href="accommodation.html" class="nav-link">Accommodation</a></li>
-        <li><a href="facilities.html" class="nav-link">Facilities</a></li>
-        <li><a href="dining.html" class="nav-link">Dining</a></li>
-        <li><a href="events.html" class="nav-link">Banquets & Events</a></li>
-        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-        <li><a href="contact.html" class="nav-link">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 20px;">
-      <a href="contact.html" style="color: white; font-size: 0.8rem; font-family: var(--font-heading); text-transform: uppercase; font-weight: 600;"><i class="fa-solid fa-location-dot"></i> Location</a>
-      <a href="book.html" class="btn btn-primary">Book Now</a>
-    </div>
-    <div class="menu-toggle" id="menu-toggle">
-      <i class="fa-solid fa-bars"></i>
-    </div>
-  </header>
-
   <!-- Hero Section -->
-  <section id="home" class="hero">
-    <img id="hero-bg" src="" alt="Resort Exterior" class="hero-bg">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 id="hero-title" class="fade-in">A Luxurious Escape</h1>
-    </div>
+  <section id="home" class="hero new-hero">
     
-    <!-- Booking Widget (Glassmorphism) -->
-    <div class="booking-widget fade-in-up">
-      <div class="booking-field">
-        <label>Check In</label>
-        <input type="date">
+    <!-- Header Inside Hero -->
+    <header class="header dribbble-header" id="header">
+      <div class="logo dribbble-logo">F.N.F</div>
+      <nav class="nav" id="nav-menu">
+        <ul class="nav-list dribbble-nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+          <li><a href="dining.html" class="nav-link">Dining</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="book.html" class="btn btn-primary dribbble-btn">Book Tickets</a>
       </div>
-      <div class="booking-field">
-        <label>Check Out</label>
-        <input type="date">
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
       </div>
-      <div class="booking-field">
-        <label>Guests</label>
-        <select>
-          <option>1 Adult</option>
-          <option>2 Adults</option>
-          <option>Family</option>
-        </select>
+    </header>
+    <div class="carousel-container">
+      <div class="carousel-center-info">
+        <h1 id="hero-title" class="fade-in large-title blackletter-title">Fun <br> N Food</h1>
+        <p class="hero-subtext">Resort where families gather not only for thrilling rides but also to share unforgettable memories</p>
+        <a href="book.html" class="btn btn-acid-video">Discover more</a>
       </div>
-      <a href="book.html" class="btn btn-primary">Check Availability</a>
+
+      <div class="carousel">
+        <div class="carousel-item item-1"><img src="assets/images/new_photos/0A9A3814.JPG" alt=""></div>
+        <div class="carousel-item item-2"><img src="assets/images/new_photos/0A9A3815.JPG" alt=""></div>
+        <div class="carousel-item item-3"><img src="assets/images/new_photos/0A9A3817.JPG" alt=""></div>
+        <div class="carousel-item item-4"><img src="assets/images/new_photos/0A9A3818.JPG" alt=""></div>
+        <div class="carousel-item item-5"><img src="assets/images/new_photos/0A9A3822.JPG" alt=""></div>
+        <div class="carousel-item item-6"><img src="assets/images/new_photos/0A9A3823.JPG" alt=""></div>
+        <div class="carousel-item item-7"><img src="assets/images/new_photos/0A9A3826.JPG" alt=""></div>
+        <div class="carousel-item item-8"><img src="assets/images/new_photos/0A9A3827.JPG" alt=""></div>
+        <div class="carousel-item item-9"><img src="assets/images/new_photos/0A9A3828.JPG" alt=""></div>
+        <div class="carousel-item item-10"><img src="assets/images/new_photos/0A9A3829.JPG" alt=""></div>
+        <div class="carousel-item item-11"><img src="assets/images/new_photos/0A9A3830.JPG" alt=""></div>
+        <div class="carousel-item item-12"><img src="assets/images/new_photos/0A9A3831.JPG" alt=""></div>
+        <div class="carousel-item item-13"><img src="assets/images/new_photos/0A9A3833.JPG" alt=""></div>
+        <div class="carousel-item item-14"><img src="assets/images/new_photos/0A9A3837.JPG" alt=""></div>
+        <div class="carousel-item item-15"><img src="assets/images/new_photos/0A9A3840.JPG" alt=""></div>
+        <div class="carousel-item item-16"><img src="assets/images/new_photos/0A9A3841.JPG" alt=""></div>
+        <div class="carousel-item item-17"><img src="assets/images/new_photos/0A9A3814.JPG" alt=""></div>
+        <div class="carousel-item item-18"><img src="assets/images/new_photos/0A9A3815.JPG" alt=""></div>
+        <div class="carousel-item item-19"><img src="assets/images/new_photos/0A9A3817.JPG" alt=""></div>
+        <div class="carousel-item item-20"><img src="assets/images/new_photos/0A9A3818.JPG" alt=""></div>
+        <div class="carousel-item item-21"><img src="assets/images/new_photos/0A9A3822.JPG" alt=""></div>
+        <div class="carousel-item item-22"><img src="assets/images/new_photos/0A9A3823.JPG" alt=""></div>
+        <div class="carousel-item item-23"><img src="assets/images/new_photos/0A9A3826.JPG" alt=""></div>
+        <div class="carousel-item item-24"><img src="assets/images/new_photos/0A9A3827.JPG" alt=""></div>
+        <div class="carousel-item item-25"><img src="assets/images/new_photos/0A9A3828.JPG" alt=""></div>
+        <div class="carousel-item item-26"><img src="assets/images/new_photos/0A9A3829.JPG" alt=""></div>
+        <div class="carousel-item item-27"><img src="assets/images/new_photos/0A9A3830.JPG" alt=""></div>
+        <div class="carousel-item item-28"><img src="assets/images/new_photos/0A9A3831.JPG" alt=""></div>
+        <div class="carousel-item item-29"><img src="assets/images/new_photos/0A9A3833.JPG" alt=""></div>
+        <div class="carousel-item item-30"><img src="assets/images/new_photos/0A9A3837.JPG" alt=""></div>
+        <div class="carousel-item item-31"><img src="assets/images/new_photos/0A9A3840.JPG" alt=""></div>
+        <div class="carousel-item item-32"><img src="assets/images/new_photos/0A9A3841.JPG" alt=""></div>
+      </div>
     </div>
   </section>
 
-  <!-- Minimalist Intro Section -->
-  <section class="section" style="padding-bottom: 20px;">
-    <div class="container text-center">
-      <p id="hero-text" class="section-text fade-in" style="max-width: 900px; margin: 0 auto; font-size: 1.25rem; line-height: 1.8; color: var(--text-dark);"></p>
+  <!-- Interactive Statement Section -->
+  <section class="statement-section" id="statement-section">
+    <div class="statement-container">
+      <h2 class="statement-text">
+        Experience a resort like no other, where families come together not only to enjoy thrilling water rides<span class="neon-dot"></span> but also to share unforgettable moments<span class="neon-dot"></span>
+      </h2>
+      
+      <div class="statement-columns">
+        <div class="col">
+          <p>Experience a resort like no other, where families come together. Built in 1990, we are one of the most prestigious properties in the region, offering a serene escape.</p>
+        </div>
+        <div class="col">
+          <p>No more traditional pitches and outdated concepts. Step into the future of luxury and personalized experiences. There are plenty of bright options but only one resort to lead the way.</p>
+        </div>
+      </div>
+
+      <div class="giant-locations">
+        <div class="loc-item">
+          <h3 class="blackletter-title">Indore</h3>
+          <span>MP-09</span>
+        </div>
+        <div class="loc-center-img">
+          <img src="assets/images/new_photos/IMG_3210.JPG.jpeg" alt="Center Highlight">
+        </div>
+        <div class="loc-item">
+          <h3 class="blackletter-title">Resort</h3>
+          <span>SKCPL</span>
+        </div>
+      </div>
+      
+      <div class="hover-image-reveal" id="hover-reveal">
+        <img src="assets/images/new_photos/0A9A3814.JPG" alt="Resort Moment">
+      </div>
+    </div>
+  </section>
+  
+  <section class="gallery-marquee-section">
+    <div class="full-width-image-container">
+      <img src="assets/images/new_photos/0A9A3828.JPG" class="full-img" alt="Gallery">
+      <div class="floating-img">
+        <img src="assets/images/new_photos/0A9A3817.JPG" alt="Gallery Small">
+      </div>
+    </div>
+    <div class="marquee-bar">
+      <div class="marquee-content">
+        <span>&bull; IT'S MORE THAN A RESORT &bull; IT'S A TRANSFORMATIVE JOURNEY &bull; INTO THE HEART AND SOUL OF FUN</span>
+        <span>&bull; IT'S MORE THAN A RESORT &bull; IT'S A TRANSFORMATIVE JOURNEY &bull; INTO THE HEART AND SOUL OF FUN</span>
+        <span>&bull; IT'S MORE THAN A RESORT &bull; IT'S A TRANSFORMATIVE JOURNEY &bull; INTO THE HEART AND SOUL OF FUN</span>
+      </div>
     </div>
   </section>
 
