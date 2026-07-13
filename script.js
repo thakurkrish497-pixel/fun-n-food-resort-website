@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: "Wedding & Banquet Halls", text: "Luxurious spaces for your special day.", image: "assets/images/facilities/wedding.jpg" },
           { title: "Private Parties", text: "Exclusive venues for private celebrations.", image: "assets/images/facilities/private_parties.jpg" },
           { title: "In-Room Dining", text: "Enjoy delicious meals in the comfort of your room.", image: "assets/images/facilities/in_room_dining.jpg" },
-          { title: "Fast Food & Snack Counters", text: "Quick and tasty bites for everyone.", image: "assets/images/restaurant.avif" },
+          { title: "Fast Food & Snack Counters", text: "Quick and tasty bites for everyone.", image: "assets/images/facilities/fast_food.jpg" },
           { title: "Rain Dance", text: "High-energy rain dance area to let loose.", image: "assets/images/activities.avif" },
           { title: "Bar", text: "Relax with your favorite drinks and cocktails.", image: "assets/images/restaurant.avif" },
           { title: "Water Pool & Slides", text: "Thrilling water rides and pristine swimming pools.", image: "assets/images/facilities/water_pool.jpg" },
