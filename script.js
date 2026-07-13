@@ -47,7 +47,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const footerAddress = document.getElementById('footer-address');
       if (footerAddress && data.contact) footerAddress.textContent = data.contact.address;
 
-      // Helper to preserve line breaks
+      // Helper to safely set elements
+      const setEl = (id, val, type='text') => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (type === 'html') el.innerHTML = val;
+          else if (type === 'src') el.src = val;
+          else el.textContent = val;
+        }
+      };
+      
       const formatText = (text) => text ? text.replace(/\n\n/g, '<br><br>') : '';
 
       // --- Index Page ---
@@ -93,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Make the entire ring rotate continuously around the text
             gsap.to('.carousel', {
               rotation: 360,
-              duration: 30,
+              duration: 10,
               repeat: -1,
               ease: "linear",
               transformOrigin: "center 80px" // Match the y+80 shift of the items
@@ -174,8 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Render Brands
-        document.getElementById('brands-title').textContent = data.brands.title;
-        document.getElementById('brands-text').innerHTML = formatText(data.brands.text);
+        setEl('brands-title', data.brands.title, 'text');
+        setEl('brands-text', formatText(data.brands.text), 'html');
         const brandsContainer = document.getElementById('brands-container');
         if (brandsContainer) {
           data.brands.items.forEach(brand => {
@@ -193,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Render Facilities Preview
-        document.getElementById('fac-title').textContent = data.facilities.title;
+        setEl('fac-title', data.facilities.title, 'text');
         const facContainer = document.getElementById('facilities-container');
         if(facContainer) {
           data.facilities.items.slice(0, 3).forEach(fac => {
@@ -211,19 +220,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Render Dining Preview
-        document.getElementById('dining-title').textContent = data.dining.title;
-        document.getElementById('dining-text').innerHTML = formatText(data.dining.text).substring(0, 200) + '...';
-        document.getElementById('dining-img').src = data.dining.image;
+        setEl('dining-title', data.dining.title, 'text');
+        setEl('dining-text', formatText(data.dining.text).substring(0, 200) + '...', 'html');
+        setEl('dining-img', data.dining.image, 'src');
 
         // Render Events Preview
-        document.getElementById('events-title').textContent = data.events.title;
-        document.getElementById('events-text').innerHTML = formatText(data.events.text).substring(0, 200) + '...';
-        document.getElementById('events-img').src = data.events.image;
+        setEl('events-title', data.events.title, 'text');
+        setEl('events-text', formatText(data.events.text).substring(0, 200) + '...', 'html');
+        setEl('events-img', data.events.image, 'src');
       }
 
       // --- Facilities Page ---
       if (path.includes('facilities')) {
-        document.getElementById('fac-title').textContent = data.facilities.title;
+        setEl('fac-title', data.facilities.title, 'text');
         const facContainer = document.getElementById('facilities-container');
         if(facContainer) {
           data.facilities.items.forEach(fac => {
@@ -243,16 +252,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // --- Dining Page ---
       if (path.includes('dining')) {
-        document.getElementById('dining-title').textContent = data.dining.title;
-        document.getElementById('dining-text').innerHTML = formatText(data.dining.text);
-        document.getElementById('dining-img').src = data.dining.image;
+        setEl('dining-title', data.dining.title, 'text');
+        setEl('dining-text', formatText(data.dining.text), 'html');
+        setEl('dining-img', data.dining.image, 'src');
       }
 
       // --- Events Page ---
       if (path.includes('events')) {
-        document.getElementById('events-title').textContent = data.events.title;
-        document.getElementById('events-text').innerHTML = formatText(data.events.text);
-        document.getElementById('events-img').src = data.events.image;
+        setEl('events-title', data.events.title, 'text');
+        setEl('events-text', formatText(data.events.text), 'html');
+        setEl('events-img', data.events.image, 'src');
       }
 
       // --- Gallery Page ---
@@ -270,10 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // --- Contact Page ---
       if (path.includes('contact')) {
-        document.getElementById('c-address').textContent = data.contact.address;
-        document.getElementById('c-phone').textContent = data.contact.phone;
-        document.getElementById('c-email').textContent = data.contact.email;
-        document.getElementById('c-map').src = data.contact.mapUrl;
+        setEl('c-address', data.contact.address, 'text');
+        setEl('c-phone', data.contact.phone, 'text');
+        setEl('c-email', data.contact.email, 'text');
+        setEl('c-map', data.contact.mapUrl, 'src');
         
         // Handle Form Submission
         const form = document.getElementById('enquiry-form');
