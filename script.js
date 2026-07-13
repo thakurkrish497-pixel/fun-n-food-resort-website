@@ -135,10 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tl.to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
               .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
               
-          } catch (e) {
-            console.error("GSAP Animation Error:", e);
-          }
-
           // 2. Change background color and show Statement Scene
           tl.to('#pin-master', { background: 'var(--cream-block)', duration: 0.5 }, 0.5)
             .to('#scene-statement', { opacity: 1, duration: 0.1 }, 0.5);
@@ -180,6 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
             duration: 20,
             ease: "linear"
           });
+          
+        } catch (e) {
+          console.error("GSAP Animation Error:", e);
+        }
         }
 
         // Render Brands
