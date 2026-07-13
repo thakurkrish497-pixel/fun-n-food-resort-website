@@ -341,13 +341,13 @@ document.addEventListener('DOMContentLoaded', () => {
           // 1. Universal Title & Text Reveal
           gsap.utils.toArray('.section-title').forEach(title => {
             gsap.from(title, {
-              scrollTrigger: { trigger: title, start: "top 85%" },
+              scrollTrigger: { trigger: title, start: "top 85%", toggleActions: "play none none reverse" },
               y: 50, opacity: 0, duration: 0.8, ease: "power2.out"
             });
           });
           gsap.utils.toArray('.section-text').forEach(text => {
             gsap.from(text, {
-              scrollTrigger: { trigger: text, start: "top 85%" },
+              scrollTrigger: { trigger: text, start: "top 85%", toggleActions: "play none none reverse" },
               y: 30, opacity: 0, duration: 0.8, delay: 0.2, ease: "power2.out"
             });
           });
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const items = grid.querySelectorAll('.facility-card, .room-card, .gallery-img, .brand-card, .footer-col');
               if (items.length > 0) {
                 gsap.from(items, {
-                  scrollTrigger: { trigger: grid, start: "top 80%" },
+                  scrollTrigger: { trigger: grid, start: "top 80%", toggleActions: "play none none reverse" },
                   y: 50, opacity: 0, scale: 0.95, duration: 0.6, stagger: 0.1, ease: "back.out(1.2)"
                 });
               }
@@ -372,13 +372,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgSide = split.querySelector('.split-image');
             if (textSide) {
               gsap.from(textSide, {
-                scrollTrigger: { trigger: split, start: "top 75%" },
+                scrollTrigger: { trigger: split, start: "top 75%", toggleActions: "play none none reverse" },
                 x: -50, opacity: 0, duration: 1, ease: "power3.out"
               });
             }
             if (imgSide) {
               gsap.from(imgSide, {
-                scrollTrigger: { trigger: split, start: "top 75%" },
+                scrollTrigger: { trigger: split, start: "top 75%", toggleActions: "play none none reverse" },
                 x: 50, opacity: 0, scale: 0.9, duration: 1, ease: "power3.out", delay: 0.2
               });
             }
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
           gsap.utils.toArray('.btn').forEach(btn => {
             if (!btn.closest('#scene-hero')) {
               gsap.from(btn, {
-                scrollTrigger: { trigger: btn, start: "top 90%" },
+                scrollTrigger: { trigger: btn, start: "top 90%", toggleActions: "play none none reverse" },
                 scale: 0.8, opacity: 0, duration: 0.5, ease: "back.out(1.5)", delay: 0.1
               });
             }
