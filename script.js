@@ -60,62 +60,84 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hText) hText.innerHTML = formatText(data.hero.text);
         if (hBg) hBg.src = data.hero.bgImage;
 
-        // Interactive Statement Hover Logic
-        const statementSection = document.getElementById('statement-section');
-        const hoverReveal = document.getElementById('hover-reveal');
-        
-        if (statementSection && hoverReveal) {
-          let currentX = window.innerWidth / 2;
-          let currentY = window.innerHeight / 2;
-          let targetX = currentX;
-          let targetY = currentY;
-          let isHovering = false;
-          
-          // Use event delegation for neon dots
-          document.addEventListener('mouseover', (e) => {
-            const dot = e.target.closest ? e.target.closest('.neon-dot') : null;
-            if (dot) {
-              isHovering = true;
-              hoverReveal.classList.add('active');
-              targetX = e.clientX;
-              targetY = e.clientY;
+        // GSAP Scroll Animation
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Position the carousel images in a circle
+          const items = document.querySelectorAll('.carousel-item');
+          const radius = 300;
+          items.forEach((item, i) => {
+            const angle = (i / items.length) * Math.PI * 2;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            // use xPercent/yPercent to correctly center the image before applying x/y offsets
+            gsap.set(item, { xPercent: -50, yPercent: -50, x: x, y: y, rotation: (angle * 180 / Math.PI) + 90 });
+          });
+
+          // Master Timeline pinned to #pin-master
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#pin-master",
+              start: "top top",
+              end: "+=4000", // Scroll length
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1
             }
           });
-          
-          document.addEventListener('mouseout', (e) => {
-            const dot = e.target.closest ? e.target.closest('.neon-dot') : null;
-            if (dot) {
-              isHovering = false;
-              hoverReveal.classList.remove('active');
-            }
+
+          // 1. Disperse Ring & Fade Out Hero Text
+          tl.to('.carousel-item', {
+            x: (i) => Math.cos((i / items.length) * Math.PI * 2) * 1500,
+            y: (i) => Math.sin((i / items.length) * Math.PI * 2) * 1500,
+            opacity: 0,
+            duration: 1
+          }, 0)
+          .to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
+          .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
+
+          // 2. Change background color and show Statement Scene
+          tl.to('#pin-master', { background: 'var(--cream-block)', duration: 0.5 }, 0.5)
+            .to('#scene-statement', { opacity: 1, duration: 0.1 }, 0.5);
+
+          // 3. Statement columns slide up
+          tl.to('.statement-columns-anim', { opacity: 1, y: 0, duration: 0.8 }, 0.8);
+
+          // 4. Inline images expand
+          tl.to('.inline-img-box', { width: '120px', margin: '0 15px', duration: 1 }, 1.2);
+
+          // 5. Hide Statement, Show Giant Text
+          tl.to('#scene-statement', { opacity: 0, duration: 0.5 }, 2.5)
+            .to('#scene-giant', { opacity: 1, duration: 0.1 }, 2.5);
+
+          // 6. Slide in Giant Text & Center Image appears
+          tl.to('.loc-left', { left: '5%', duration: 1 }, 2.6)
+            .to('.loc-right', { right: '5%', duration: 1 }, 2.6)
+            .to('.loc-center-img-anim', { width: 320, height: 180, opacity: 1, duration: 1, ease: "back.out(1.7)" }, 2.6);
+
+          // 7. Expand Center Image to cover screen (using width/height instead of scale)
+          tl.to('.loc-left', { x: -500, opacity: 0, duration: 1 }, 4)
+            .to('.loc-right', { x: 500, opacity: 0, duration: 1 }, 4)
+            .to('.loc-center-img-anim', { 
+              width: "100vw", 
+              height: "100vh", 
+              borderRadius: "0px",
+              duration: 2, 
+              ease: "power2.inOut" 
+            }, 4);
+
+          // 8. Show Marquee over the image
+          tl.to('#scene-gallery', { opacity: 1, duration: 0.1 }, 5.5)
+            .to('.marquee-bar-anim', { opacity: 1, y: 0, duration: 0.5 }, 5.5);
+            
+          // Marquee continuous animation (independent of scroll)
+          gsap.to('.marquee-content-anim', {
+            xPercent: -50,
+            repeat: -1,
+            duration: 20,
+            ease: "linear"
           });
-          
-          document.addEventListener('mousemove', (e) => {
-            if(isHovering) {
-              targetX = e.clientX;
-              targetY = e.clientY;
-            }
-          });
-          
-          // Smooth Linear Interpolation Animation
-          function animateCursor() {
-            if (isHovering) {
-              currentX += (targetX - currentX) * 0.08;
-              currentY += (targetY - currentY) * 0.08;
-              
-              // Calculate a slight rotation based on movement speed
-              const speedX = targetX - currentX;
-              const rotation = speedX * 0.05;
-              
-              hoverReveal.style.transform = `translate(-50%, -50%) translate(${currentX}px, ${currentY}px) rotate(${rotation}deg)`;
-            }
-            requestAnimationFrame(animateCursor);
-          }
-          
-          // Reset initial transform styling
-          hoverReveal.style.left = '0px';
-          hoverReveal.style.top = '0px';
-          animateCursor();
         }
 
         // Render Brands

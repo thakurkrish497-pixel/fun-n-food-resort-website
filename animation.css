@@ -1,0 +1,227 @@
+/* =========================================
+   GSAP Scroll Animation Styles 
+   ========================================= */
+
+#pin-master {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--gradient-bg);
+}
+
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0; /* Hidden by default, GSAP will handle */
+  pointer-events: none; /* Let clicks pass through if hidden */
+}
+
+/* Scene 1: Hero */
+#scene-hero {
+  opacity: 1; /* First scene is visible */
+  pointer-events: auto;
+}
+
+#scene-hero .carousel-container {
+  /* Ensure it's centered and takes up space */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-center-info {
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Position carousel items in a circle */
+.carousel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.carousel-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 180px;
+  transform-origin: center center;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Scene 2: Statement */
+#scene-statement {
+  background: var(--cream-block);
+  color: var(--deep-blue);
+}
+
+.statement-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.statement-text-anim {
+  font-family: var(--font-statement);
+  font-size: 3rem;
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+
+.inline-img-box {
+  display: inline-block;
+  width: 0px; /* starts collapsed */
+  height: 1.2em;
+  vertical-align: middle;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 0;
+  transition: margin 0.3s ease;
+}
+
+.inline-img-box img {
+  width: 100px; /* Fixed width to reveal */
+  height: 100%;
+  object-fit: cover;
+}
+
+.statement-columns-anim {
+  display: flex;
+  gap: 40px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.statement-columns-anim .col p {
+  font-size: 1.1rem;
+  color: var(--deep-blue);
+  opacity: 0.8;
+}
+
+/* Scene 3: Giant Text */
+#scene-giant {
+  /* Transparent background to see the cream color below */
+}
+
+.giant-locations-anim {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.loc-item {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loc-left {
+  left: -20%; /* Start offscreen */
+}
+
+.loc-right {
+  right: -20%; /* Start offscreen */
+}
+
+.giant-word {
+  font-size: 15vw;
+  line-height: 1;
+  margin: 0;
+  color: var(--deep-blue);
+}
+
+.loc-item span {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  color: var(--text-light);
+}
+
+.loc-center-img-anim {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0px;
+  height: 0px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  z-index: 5;
+}
+
+.loc-center-img-anim img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scene 4: Expanded Gallery */
+#scene-gallery {
+  /* We will make the loc-center-img-anim scale up to cover this */
+}
+
+.marquee-bar-anim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--accent-color);
+  color: var(--deep-blue);
+  padding: 15px 0;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 10;
+}
+
+.marquee-content-anim {
+  display: flex;
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+}
+
+.marquee-content-anim span {
+  padding-right: 50px;
+}
