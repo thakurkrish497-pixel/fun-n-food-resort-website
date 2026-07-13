@@ -64,19 +64,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in a true 3D cylinder (merry-go-round)
+          // Position the carousel images in an open 3D arc (U-shape) facing the viewer
           const items = document.querySelectorAll('.carousel-item');
-          const radius = 450; // Radius of the 3D ring
+          const radius = 550; // Radius of the 3D arc
+          const arcAngle = Math.PI * 1.1; // Span ~200 degrees
+          const startAngle = -arcAngle / 2;
           
           items.forEach((item, i) => {
-            // Distribute along the circle in X-Z plane
-            const angle = (i / items.length) * Math.PI * 2;
+            // Distribute along an open arc
+            const angle = startAngle + (i / (items.length - 1)) * arcAngle;
             const x = Math.sin(angle) * radius;
-            const z = Math.cos(angle) * radius;
+            const z = -Math.cos(angle) * radius; // negative pushes it backwards into the screen
             
             // Rotate on Y axis to point towards the center
-            // Adding 90 degrees makes the cards' faces tangent to the circle, matching the video
-            const rotationY = (angle * 180 / Math.PI) + 90;
+            const rotationY = -angle * (180 / Math.PI);
 
             gsap.set(item, { 
               xPercent: -50, 
@@ -104,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
           // 1. Disperse Ring & Fade Out in 3D
           tl.to('.carousel-item', {
             x: (i) => {
-               const angle = (i / items.length) * Math.PI * 2;
+               const angle = startAngle + (i / (items.length - 1)) * arcAngle;
                return Math.sin(angle) * 1500;
             },
             z: (i) => {
-               const angle = (i / items.length) * Math.PI * 2;
-               return Math.cos(angle) * 1500;
+               const angle = startAngle + (i / (items.length - 1)) * arcAngle;
+               return -Math.cos(angle) * 1500;
             },
             y: "+=300", // disperse downwards too
             opacity: 0,

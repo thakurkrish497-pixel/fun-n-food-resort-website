@@ -60,7 +60,7 @@
   height: 100%;
   z-index: 1;
   pointer-events: none;
-  perspective: 1200px;
+  perspective: 2500px;
   transform-style: preserve-3d;
 }
 
