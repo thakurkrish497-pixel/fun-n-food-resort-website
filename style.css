@@ -199,9 +199,9 @@ a {
 
 @media (min-width: 769px) {
   #nav-menu {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    flex: 1;
+    display: flex;
+    justify-content: center;
   }
 }
 
