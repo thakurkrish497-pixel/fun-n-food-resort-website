@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in a perfect 3D circle (the container is tilted in CSS)
+          // Position the carousel images using pseudo-3D to avoid glitchy CSS 3D rendering
           const carousel = document.querySelector('.carousel');
           const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
           
@@ -75,12 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           
           const items = document.querySelectorAll('.carousel-item');
-          const radius = 600; // Perfect circle radius
+          const radiusX = 600; // Wide horizontal radius 
+          const radiusY = 150; // Squashed vertical radius to fake the "tilted ring" look
           
           items.forEach((item, i) => {
             const angle = (i / items.length) * Math.PI * 2;
-            const x = Math.sin(angle) * radius;
-            const z = Math.cos(angle) * radius;
+            const x = Math.sin(angle) * radiusX;
+            const y = Math.cos(angle) * radiusY;
+            
+            // Cards in the front (cos > 0) are larger and have higher z-index
+            const scale = 0.65 + ((Math.cos(angle) + 1) / 2) * 0.35; // 0.65 to 1.0
+            const zIndex = Math.round(Math.cos(angle) * 100);
             
             // Cards are rotated 90 degrees relative to their spoke, making them point to the center
             const rotationY = (angle * 180 / Math.PI) + 90;
@@ -89,10 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
               xPercent: -50, 
               yPercent: -50, 
               x: x, 
-              y: 80, // Shift down slightly below text
-              z: z, 
-              rotationY: rotationY,
-              transformStyle: "preserve-3d"
+              y: y + 80, // Shift down slightly below text
+              scale: scale,
+              zIndex: zIndex,
+              rotationY: rotationY
             });
           });
 
@@ -108,17 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
 
-          // 1. Disperse Ring & Fade Out in 3D
+          // 1. Disperse Ring & Fade Out
           tl.to('.carousel-item', {
             x: (i) => {
                const angle = (i / items.length) * Math.PI * 2;
                return Math.sin(angle) * 1500;
             },
-            z: (i) => {
+            y: (i) => {
                const angle = (i / items.length) * Math.PI * 2;
-               return Math.cos(angle) * 1500;
+               return Math.cos(angle) * 1000 + 300;
             },
-            y: "+=300", // disperse downwards too
+            scale: 1.5,
             opacity: 0,
             duration: 1
           }, 0)
