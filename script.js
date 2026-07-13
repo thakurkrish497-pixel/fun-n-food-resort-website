@@ -67,15 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Position the carousel images in a STATIC U-shape arc
             const carousel = document.querySelector('.carousel');
-            const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
-            
-            // Duplicate items to make the ring tightly packed
-            for (let i = 0; i < 18; i++) {
-               if (originalItems.length > 0) {
-                 carousel.appendChild(originalItems[i % originalItems.length].cloneNode(true));
-               }
-            }
-            
             const items = document.querySelectorAll('.carousel-item');
             const radiusX = 650; 
             const radiusY = 150; 
