@@ -108,6 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
               transformOrigin: "center 80px" // Match the y+80 shift of the items
             });
 
+            // Smoothly fade in the carousel ONLY after it has been arranged into a circle
+            gsap.to('.carousel', { opacity: 1, duration: 1.5 });
+
             // Master Timeline pinned to #pin-master
             const tl = gsap.timeline({
               scrollTrigger: {
