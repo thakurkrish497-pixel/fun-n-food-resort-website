@@ -64,20 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in an open 3D arc (U-shape) facing the viewer
+          // Position the carousel images in a dense, wide 3D ellipse to match the screenshot perfectly
+          const carousel = document.querySelector('.carousel');
+          const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
+          
+          // Duplicate items to make the ring tightly packed like the video (36 items total)
+          originalItems.forEach(item => {
+             carousel.appendChild(item.cloneNode(true));
+             carousel.appendChild(item.cloneNode(true));
+          });
+          
           const items = document.querySelectorAll('.carousel-item');
-          const radius = 550; // Radius of the 3D arc
-          const arcAngle = Math.PI * 1.1; // Span ~200 degrees
-          const startAngle = -arcAngle / 2;
+          const radiusX = 600; // Wide horizontal radius to match the screenshot
+          const radiusZ = 200; // Shallow depth to keep sizes consistent (prevents "too big/small")
           
           items.forEach((item, i) => {
-            // Distribute along an open arc
-            const angle = startAngle + (i / (items.length - 1)) * arcAngle;
-            const x = Math.sin(angle) * radius;
-            const z = -Math.cos(angle) * radius; // negative pushes it backwards into the screen
+            // Full closed circle distribution in X-Z plane
+            const angle = (i / items.length) * Math.PI * 2;
+            const x = Math.sin(angle) * radiusX;
+            const z = Math.cos(angle) * radiusZ;
             
-            // Rotate on Y axis to point towards the center
-            const rotationY = -angle * (180 / Math.PI);
+            // Rotate so cards are edge-on in the front/back, and full-face on the sides
+            // This exactly matches the radial 'spoke' layout of the cards in the screenshot
+            const rotationY = (angle * 180 / Math.PI) + 90;
 
             gsap.set(item, { 
               xPercent: -50, 
@@ -105,12 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
           // 1. Disperse Ring & Fade Out in 3D
           tl.to('.carousel-item', {
             x: (i) => {
-               const angle = startAngle + (i / (items.length - 1)) * arcAngle;
+               const angle = (i / items.length) * Math.PI * 2;
                return Math.sin(angle) * 1500;
             },
             z: (i) => {
-               const angle = startAngle + (i / (items.length - 1)) * arcAngle;
-               return -Math.cos(angle) * 1500;
+               const angle = (i / items.length) * Math.PI * 2;
+               return Math.cos(angle) * 1500;
             },
             y: "+=300", // disperse downwards too
             opacity: 0,
