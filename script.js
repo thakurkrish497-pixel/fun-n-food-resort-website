@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const carousel = document.querySelector('.carousel');
             const items = document.querySelectorAll('.carousel-item');
-            const radius = 450; // Perfect circle radius
+            const radius = window.innerWidth < 768 ? window.innerWidth / 2.2 : 450; // Perfect circle radius
             
             items.forEach((item, i) => {
               // Distribute evenly in a full 360 circle
@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
             items.forEach((item, i) => {
               const angle = (i / items.length) * Math.PI * 2;
               tl.to(item, {
-                x: Math.sin(angle) * 1500, // Slightly tighter explosion radius
-                y: -Math.cos(angle) * 1500 + 80,
+                x: Math.sin(angle) * (window.innerWidth < 768 ? window.innerWidth * 1.2 : 1500), // Slightly tighter explosion radius
+                y: -Math.cos(angle) * (window.innerWidth < 768 ? window.innerWidth * 1.2 : 1500) + 80,
                 scale: 1.5, // Less extreme scaling
                 opacity: 0,
                 duration: 1.5, // Majestic, smooth explosion over more scroll distance
@@ -402,3 +402,21 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error fetching data:', error));
 });
+
+
+// Mobile Menu Toggle Logic
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+  
+  // Close menu when a link is clicked
+  const navLinks = navMenu.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+    });
+  });
+}
