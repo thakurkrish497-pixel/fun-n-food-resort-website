@@ -64,44 +64,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images using pseudo-3D to avoid glitchy CSS 3D rendering
+          // Position the carousel images in a STATIC U-shape arc to perfectly match the video
           const carousel = document.querySelector('.carousel');
           const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
           
-          // Duplicate items to make the ring tightly packed like the video (36 items total)
-          originalItems.forEach(item => {
-             carousel.appendChild(item.cloneNode(true));
-             carousel.appendChild(item.cloneNode(true));
-          });
+          // Duplicate items to make the ring tightly packed (30 items total)
+          for (let i = 0; i < 18; i++) {
+             carousel.appendChild(originalItems[i % originalItems.length].cloneNode(true));
+          }
           
           const items = document.querySelectorAll('.carousel-item');
-          const radiusX = 600; // Wide horizontal radius 
-          const radiusY = 150; // Squashed vertical radius to fake the "tilted ring" look
+          const radiusX = 650; // Width of the U-shape
+          const radiusY = 150; // Upward swoop in the middle to simulate tilt
           
           items.forEach((item, i) => {
-            const angle = (i / items.length) * Math.PI * 2;
-            const x = Math.sin(angle) * radiusX;
-            const y = Math.cos(angle) * radiusY;
+            // Angle goes from 0 to 180 degrees (Math.PI) to form the U-shape
+            const angle = (i / (items.length - 1)) * Math.PI;
             
-            // Cards in the front (cos > 0) are larger and have higher z-index
-            const scale = 0.65 + ((Math.cos(angle) + 1) / 2) * 0.35; // 0.65 to 1.0
-            const zIndex = Math.round(Math.cos(angle) * 100);
+            // x goes from left (-radiusX) to right (+radiusX)
+            const x = -Math.cos(angle) * radiusX;
+            // y moves UP in the middle (angle = 90deg)
+            const y = -Math.sin(angle) * radiusY + 180; 
             
-            // Cards are rotated 90 degrees relative to their spoke, making them point to the center
-            const rotationY = (angle * 180 / Math.PI) + 90;
+            // Scale is smallest in the middle (farthest away)
+            const scale = 1.0 - Math.sin(angle) * 0.55; 
+            // Opacity is lowest in the middle (faded effect from the video)
+            const opacity = 1.0 - Math.sin(angle) * 0.8; 
+            // Z-index is lowest in the middle (placed in the back)
+            const zIndex = Math.round((1 - Math.sin(angle)) * 100);
+            
+            // Left cards face right (90deg), Center face forward (0deg), Right face left (-90deg)
+            const rotationY = -(angle * 180 / Math.PI) + 90;
 
             gsap.set(item, { 
               xPercent: -50, 
               yPercent: -50, 
               x: x, 
-              y: y + 80, // Shift down slightly below text
+              y: y,
               scale: scale,
+              opacity: opacity,
               zIndex: zIndex,
               rotationY: rotationY
             });
           });
 
-          // Master Timeline pinned to #pin-master
+          // Master Timeline pinned to #pin-master (ring stays static, only text animates)
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: "#pin-master",
@@ -113,20 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
 
-          // 1. Disperse Ring & Fade Out
-          tl.to('.carousel-item', {
-            x: (i) => {
-               const angle = (i / items.length) * Math.PI * 2;
-               return Math.sin(angle) * 1500;
-            },
-            y: (i) => {
-               const angle = (i / items.length) * Math.PI * 2;
-               return Math.cos(angle) * 1000 + 300;
-            },
-            scale: 1.5,
-            opacity: 0,
-            duration: 1
-          }, 0)
+          // The ring stays static! Only fade out the hero text.
           .to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
           .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
 
