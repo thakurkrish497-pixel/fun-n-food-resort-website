@@ -62,82 +62,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // GSAP Scroll Animation
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-          gsap.registerPlugin(ScrollTrigger);
+          try {
+            gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in a STATIC U-shape arc to perfectly match the video
-          const carousel = document.querySelector('.carousel');
-          const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
-          
-          // Duplicate items to make the ring tightly packed (30 items total)
-          for (let i = 0; i < 18; i++) {
-             carousel.appendChild(originalItems[i % originalItems.length].cloneNode(true));
-          }
-          
-          const items = document.querySelectorAll('.carousel-item');
-          const radiusX = 650; // Width of the U-shape
-          const radiusY = 150; // Upward swoop in the middle to simulate tilt
-          
-          items.forEach((item, i) => {
-            // Angle goes from 0 to 180 degrees (Math.PI) to form the U-shape
-            const angle = (i / (items.length - 1)) * Math.PI;
+            // Position the carousel images in a STATIC U-shape arc
+            const carousel = document.querySelector('.carousel');
+            const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
             
-            // x goes from left (-radiusX) to right (+radiusX)
-            const x = -Math.cos(angle) * radiusX;
-            // y moves UP in the middle (angle = 90deg)
-            const y = -Math.sin(angle) * radiusY + 180; 
-            
-            // Scale is smallest in the middle (farthest away)
-            const scale = 1.0 - Math.sin(angle) * 0.55; 
-            // Opacity is lowest in the middle (faded effect from the video)
-            const opacity = 1.0 - Math.sin(angle) * 0.8; 
-            // Z-index is lowest in the middle (placed in the back)
-            const zIndex = Math.round((1 - Math.sin(angle)) * 100);
-            
-            // Left cards face right (90deg), Center face forward (0deg), Right face left (-90deg)
-            const rotationY = -(angle * 180 / Math.PI) + 90;
-
-            gsap.set(item, { 
-              xPercent: -50, 
-              yPercent: -50, 
-              x: x, 
-              y: y,
-              scale: scale,
-              opacity: opacity,
-              zIndex: zIndex,
-              rotationY: rotationY
-            });
-          });
-
-          // Master Timeline pinned to #pin-master
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: "#pin-master",
-              start: "top top",
-              end: "+=4000", // Scroll length
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1
+            // Duplicate items to make the ring tightly packed
+            for (let i = 0; i < 18; i++) {
+               if (originalItems.length > 0) {
+                 carousel.appendChild(originalItems[i % originalItems.length].cloneNode(true));
+               }
             }
-          });
+            
+            const items = document.querySelectorAll('.carousel-item');
+            const radiusX = 650; 
+            const radiusY = 150; 
+            
+            items.forEach((item, i) => {
+              const angle = items.length > 1 ? (i / (items.length - 1)) * Math.PI : 0;
+              const x = -Math.cos(angle) * radiusX;
+              const y = -Math.sin(angle) * radiusY + 180; 
+              const scale = 1.0 - Math.sin(angle) * 0.55; 
+              const opacity = 1.0 - Math.sin(angle) * 0.8; 
+              const zIndex = Math.round((1 - Math.sin(angle)) * 100);
+              const rotationY = -(angle * 180 / Math.PI) + 90;
 
-          // 1. Disperse Ring & Fade Out (Explode on scroll)
-          tl.to('.carousel-item', {
-            x: (i) => {
-               const angle = (i / (items.length - 1)) * Math.PI;
-               // Explode outward horizontally based on their position in the arc
-               return -Math.cos(angle) * 2000; 
-            },
-            y: (i) => {
-               const angle = (i / (items.length - 1)) * Math.PI;
-               // Scatter downwards and outwards
-               return -Math.sin(angle) * 1000 + 500; 
-            },
-            scale: 2, // Grow as they fly towards camera
-            opacity: 0,
-            duration: 1
-          }, 0)
-          .to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
-          .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
+              gsap.set(item, { 
+                xPercent: -50, 
+                yPercent: -50, 
+                x: x, 
+                y: y,
+                scale: scale,
+                opacity: opacity,
+                zIndex: zIndex,
+                rotationY: rotationY,
+                willChange: "transform, opacity" // Massively improves performance and prevents lag
+              });
+            });
+
+            // Master Timeline pinned to #pin-master
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: "#pin-master",
+                start: "top top",
+                end: "+=4000", 
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1
+              }
+            });
+
+            // 1. Disperse Ring & Fade Out (Explode on scroll)
+            // Added individually to avoid function-based value crash risks
+            items.forEach((item, i) => {
+              const angle = items.length > 1 ? (i / (items.length - 1)) * Math.PI : 0;
+              tl.to(item, {
+                x: -Math.cos(angle) * 2000,
+                y: -Math.sin(angle) * 1000 + 500,
+                scale: 2,
+                opacity: 0,
+                duration: 1
+              }, 0);
+            });
+
+            tl.to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
+              .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
+              
+          } catch (e) {
+            console.error("GSAP Animation Error:", e);
+          }
 
           // 2. Change background color and show Statement Scene
           tl.to('#pin-master', { background: 'var(--cream-block)', duration: 0.5 }, 0.5)
