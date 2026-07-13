@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           });
 
-          // Master Timeline pinned to #pin-master (ring stays static, only text animates)
+          // Master Timeline pinned to #pin-master
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: "#pin-master",
@@ -120,7 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
 
-          // The ring stays static! Only fade out the hero text.
+          // 1. Disperse Ring & Fade Out (Explode on scroll)
+          tl.to('.carousel-item', {
+            x: (i) => {
+               const angle = (i / (items.length - 1)) * Math.PI;
+               // Explode outward horizontally based on their position in the arc
+               return -Math.cos(angle) * 2000; 
+            },
+            y: (i) => {
+               const angle = (i / (items.length - 1)) * Math.PI;
+               // Scatter downwards and outwards
+               return -Math.sin(angle) * 1000 + 500; 
+            },
+            scale: 2, // Grow as they fly towards camera
+            opacity: 0,
+            duration: 1
+          }, 0)
           .to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
           .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
 
