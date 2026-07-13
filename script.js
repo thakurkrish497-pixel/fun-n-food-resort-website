@@ -64,15 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in a circle
+          // Position the carousel images in a horizontal ellipse (3D ring effect)
           const items = document.querySelectorAll('.carousel-item');
-          const radius = 300;
+          const radiusX = 400; // Horizontal radius
+          const radiusY = 100; // Vertical radius (squashed to look 3D)
+          
           items.forEach((item, i) => {
+            // Distribute along the ellipse
             const angle = (i / items.length) * Math.PI * 2;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-            // use xPercent/yPercent to correctly center the image before applying x/y offsets
-            gsap.set(item, { xPercent: -50, yPercent: -50, x: x, y: y, rotation: (angle * 180 / Math.PI) + 90 });
+            const x = Math.cos(angle) * radiusX;
+            const y = Math.sin(angle) * radiusY + 120; // Shift down below text
+            
+            // Calculate pseudo-3D properties based on position in the ellipse
+            // Math.sin(angle) is 1 at bottom (front), -1 at top (back)
+            const zIndex = Math.round((Math.sin(angle) + 1) * 100);
+            const scale = 0.7 + (Math.sin(angle) + 1) * 0.15; // Scale front items larger
+            
+            // Keep cards upright, but give a slight fan tilt based on x position
+            const rotation = Math.cos(angle) * 10; 
+
+            gsap.set(item, { 
+              xPercent: -50, 
+              yPercent: -50, 
+              x: x, 
+              y: y, 
+              zIndex: zIndex,
+              scale: scale,
+              rotation: rotation
+            });
           });
 
           // Master Timeline pinned to #pin-master
@@ -87,11 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
 
-          // 1. Disperse Ring & Fade Out Hero Text
+          // 1. Disperse Ring & Fade Out
           tl.to('.carousel-item', {
-            x: (i) => Math.cos((i / items.length) * Math.PI * 2) * 1500,
-            y: (i) => Math.sin((i / items.length) * Math.PI * 2) * 1500,
+            x: (i) => {
+               const angle = (i / items.length) * Math.PI * 2;
+               return Math.cos(angle) * 1500;
+            },
+            y: (i) => {
+               const angle = (i / items.length) * Math.PI * 2;
+               return Math.sin(angle) * 500 + 120; // Disperse slightly vertically too
+            },
             opacity: 0,
+            scale: 1.5,
             duration: 1
           }, 0)
           .to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
