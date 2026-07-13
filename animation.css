@@ -62,6 +62,7 @@
   pointer-events: none;
   perspective: 2500px;
   transform-style: preserve-3d;
+  transform: rotateX(-15deg); /* The ring is tilted */
 }
 
 .carousel-item {

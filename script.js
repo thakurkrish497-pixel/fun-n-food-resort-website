@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in a dense, wide 3D ellipse to match the screenshot perfectly
+          // Position the carousel images in a perfect 3D circle (the container is tilted in CSS)
           const carousel = document.querySelector('.carousel');
           const originalItems = Array.from(document.querySelectorAll('.carousel-item'));
           
@@ -75,17 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           
           const items = document.querySelectorAll('.carousel-item');
-          const radiusX = 600; // Wide horizontal radius to match the screenshot
-          const radiusZ = 200; // Shallow depth to keep sizes consistent (prevents "too big/small")
+          const radius = 600; // Perfect circle radius
           
           items.forEach((item, i) => {
-            // Full closed circle distribution in X-Z plane
             const angle = (i / items.length) * Math.PI * 2;
-            const x = Math.sin(angle) * radiusX;
-            const z = Math.cos(angle) * radiusZ;
+            const x = Math.sin(angle) * radius;
+            const z = Math.cos(angle) * radius;
             
-            // Rotate so cards are edge-on in the front/back, and full-face on the sides
-            // This exactly matches the radial 'spoke' layout of the cards in the screenshot
+            // Cards are rotated 90 degrees relative to their spoke, making them point to the center
             const rotationY = (angle * 180 / Math.PI) + 90;
 
             gsap.set(item, { 
