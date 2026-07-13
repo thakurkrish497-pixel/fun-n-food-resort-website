@@ -64,33 +64,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
 
-          // Position the carousel images in a horizontal ellipse (3D ring effect)
+          // Position the carousel images in a true 3D cylinder (merry-go-round)
           const items = document.querySelectorAll('.carousel-item');
-          const radiusX = 400; // Horizontal radius
-          const radiusY = 100; // Vertical radius (squashed to look 3D)
+          const radius = 450; // Radius of the 3D ring
           
           items.forEach((item, i) => {
-            // Distribute along the ellipse
+            // Distribute along the circle in X-Z plane
             const angle = (i / items.length) * Math.PI * 2;
-            const x = Math.cos(angle) * radiusX;
-            const y = Math.sin(angle) * radiusY + 120; // Shift down below text
+            const x = Math.sin(angle) * radius;
+            const z = Math.cos(angle) * radius;
             
-            // Calculate pseudo-3D properties based on position in the ellipse
-            // Math.sin(angle) is 1 at bottom (front), -1 at top (back)
-            const zIndex = Math.round((Math.sin(angle) + 1) * 100);
-            const scale = 0.7 + (Math.sin(angle) + 1) * 0.15; // Scale front items larger
-            
-            // Keep cards upright, but give a slight fan tilt based on x position
-            const rotation = Math.cos(angle) * 10; 
+            // Rotate on Y axis to point towards the center
+            // Adding 90 degrees makes the cards' faces tangent to the circle, matching the video
+            const rotationY = (angle * 180 / Math.PI) + 90;
 
             gsap.set(item, { 
               xPercent: -50, 
               yPercent: -50, 
               x: x, 
-              y: y, 
-              zIndex: zIndex,
-              scale: scale,
-              rotation: rotation
+              y: 80, // Shift down slightly below text
+              z: z, 
+              rotationY: rotationY,
+              transformStyle: "preserve-3d"
             });
           });
 
@@ -106,18 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
 
-          // 1. Disperse Ring & Fade Out
+          // 1. Disperse Ring & Fade Out in 3D
           tl.to('.carousel-item', {
             x: (i) => {
                const angle = (i / items.length) * Math.PI * 2;
+               return Math.sin(angle) * 1500;
+            },
+            z: (i) => {
+               const angle = (i / items.length) * Math.PI * 2;
                return Math.cos(angle) * 1500;
             },
-            y: (i) => {
-               const angle = (i / items.length) * Math.PI * 2;
-               return Math.sin(angle) * 500 + 120; // Disperse slightly vertically too
-            },
+            y: "+=300", // disperse downwards too
             opacity: 0,
-            scale: 1.5,
             duration: 1
           }, 0)
           .to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)

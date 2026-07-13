@@ -51,7 +51,7 @@
   align-items: center;
 }
 
-/* Position carousel items in a circle */
+/* Position carousel items in a 3D circle */
 .carousel {
   position: absolute;
   top: 0;
@@ -60,6 +60,8 @@
   height: 100%;
   z-index: 1;
   pointer-events: none;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 .carousel-item {
