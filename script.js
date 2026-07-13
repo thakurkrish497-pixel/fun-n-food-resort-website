@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
               scrollTrigger: {
                 trigger: "#pin-master",
                 start: "top top",
-                end: "+=4000", 
+                end: "+=6000", // Increased scroll length for much smoother, less harsh transitions
                 scrub: 1,
                 pin: true,
                 anticipatePin: 1
@@ -124,50 +124,53 @@ document.addEventListener('DOMContentLoaded', () => {
             items.forEach((item, i) => {
               const angle = (i / items.length) * Math.PI * 2;
               tl.to(item, {
-                x: Math.sin(angle) * 2000,
-                y: -Math.cos(angle) * 2000 + 80,
-                scale: 2,
+                x: Math.sin(angle) * 1500, // Slightly tighter explosion radius
+                y: -Math.cos(angle) * 1500 + 80,
+                scale: 1.5, // Less extreme scaling
                 opacity: 0,
-                duration: 1
+                duration: 1.5, // Majestic, smooth explosion over more scroll distance
+                ease: "power2.out" // Start fast, slow down smoothly
               }, 0);
             });
 
+            // Text fades immediately
             tl.to('.carousel-center-info', { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
-              .to('#scene-hero', { opacity: 0, duration: 0.5 }, 0.5);
-              
-          // 2. Change background color and show Statement Scene
-          tl.to('#pin-master', { background: 'var(--cream-block)', duration: 0.5 }, 0.5)
-            .to('#scene-statement', { opacity: 1, duration: 0.1 }, 0.5);
+            // Hero container waits for explosion to finish before vanishing
+              .to('#scene-hero', { opacity: 0, duration: 0.5 }, 1.5);
+
+          // 2. Change background color and show Statement Scene smoothly
+          tl.to('#pin-master', { background: 'var(--cream-block)', duration: 0.8 }, 1.0)
+            .to('#scene-statement', { opacity: 1, duration: 0.5 }, 1.5);
 
           // 3. Statement columns slide up
-          tl.to('.statement-columns-anim', { opacity: 1, y: 0, duration: 0.8 }, 0.8);
+          tl.to('.statement-columns-anim', { opacity: 1, y: 0, duration: 0.8 }, 1.8);
 
           // 4. Inline images expand
-          tl.to('.inline-img-box', { width: '120px', margin: '0 15px', duration: 1 }, 1.2);
+          tl.to('.inline-img-box', { width: '120px', margin: '0 15px', duration: 1 }, 2.2);
 
           // 5. Hide Statement, Show Giant Text
-          tl.to('#scene-statement', { opacity: 0, duration: 0.5 }, 2.5)
-            .to('#scene-giant', { opacity: 1, duration: 0.1 }, 2.5);
+          tl.to('#scene-statement', { opacity: 0, duration: 0.5 }, 3.5)
+            .to('#scene-giant', { opacity: 1, duration: 0.1 }, 3.5);
 
           // 6. Slide in Giant Text & Center Image appears
-          tl.to('.loc-left', { left: '5%', duration: 1 }, 2.6)
-            .to('.loc-right', { right: '5%', duration: 1 }, 2.6)
-            .to('.loc-center-img-anim', { width: 320, height: 180, opacity: 1, duration: 1, ease: "back.out(1.7)" }, 2.6);
+          tl.to('.loc-left', { left: '5%', duration: 1 }, 3.6)
+            .to('.loc-right', { right: '5%', duration: 1 }, 3.6)
+            .to('.loc-center-img-anim', { width: 320, height: 180, opacity: 1, duration: 1, ease: "back.out(1.7)" }, 3.6);
 
-          // 7. Expand Center Image to cover screen (using width/height instead of scale)
-          tl.to('.loc-left', { x: -500, opacity: 0, duration: 1 }, 4)
-            .to('.loc-right', { x: 500, opacity: 0, duration: 1 }, 4)
+          // 7. Expand Center Image to cover screen
+          tl.to('.loc-left', { x: -500, opacity: 0, duration: 1 }, 5.0)
+            .to('.loc-right', { x: 500, opacity: 0, duration: 1 }, 5.0)
             .to('.loc-center-img-anim', { 
               width: "100vw", 
               height: "100vh", 
               borderRadius: "0px",
               duration: 2, 
               ease: "power2.inOut" 
-            }, 4);
+            }, 5.0);
 
           // 8. Show Marquee over the image
-          tl.to('#scene-gallery', { opacity: 1, duration: 0.1 }, 5.5)
-            .to('.marquee-bar-anim', { opacity: 1, y: 0, duration: 0.5 }, 5.5);
+          tl.to('#scene-gallery', { opacity: 1, duration: 0.1 }, 7.0)
+            .to('.marquee-bar-anim', { opacity: 1, y: 0, duration: 0.5 }, 7.0);
             
           // Marquee continuous animation (independent of scroll)
           gsap.to('.marquee-content-anim', {
