@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
           { title: "In-Room Dining", text: "Enjoy delicious meals in the comfort of your room.", image: "assets/images/facilities/in_room_dining.jpg" },
           { title: "Fast Food & Snack Counters", text: "Quick and tasty bites for everyone.", image: "assets/images/facilities/fast_food.jpg" },
           { title: "Rain Dance", text: "High-energy rain dance area to let loose.", image: "assets/images/activities.avif" },
-          { title: "Bar", text: "Relax with your favorite drinks and cocktails.", image: "assets/images/restaurant.avif" },
+          { title: "Bar", text: "Relax with your favorite drinks and cocktails.", image: "assets/images/facilities/bar.jpg" },
           { title: "Water Pool & Slides", text: "Thrilling water rides and pristine swimming pools.", image: "assets/images/facilities/water_pool.jpg" },
           { title: "Private Room Pool", text: "Exclusive pool access for select accommodations.", image: "assets/images/facilities/private_room_pool.jpg" },
           { title: "Ample Parking", text: "Spacious and secure parking for all guests.", image: "assets/images/facilities/parking.jpg" },
