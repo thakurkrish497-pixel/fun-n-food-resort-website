@@ -135,14 +135,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Make the entire ring rotate continuously around the text
             gsap.to('.carousel', {
               rotation: 360,
-              duration: 10,
+              duration: 7,
               repeat: -1,
-              ease: "linear",
+              ease: "none",
               transformOrigin: "center 80px" // Match the y+80 shift of the items
             });
 
             // Smoothly fade in the carousel ONLY after it has been arranged into a circle
-            gsap.to('.carousel', { opacity: 1, duration: 1.5 });
+            gsap.to('.carousel', { opacity: 1, duration: 2.5, ease: 'power2.inOut' });
 
             // Master Timeline pinned to #pin-master
             const tl = gsap.timeline({
@@ -162,10 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
               tl.to(item, {
                 x: Math.sin(angle) * (window.innerWidth < 768 ? window.innerWidth * 1.2 : 1500), // Slightly tighter explosion radius
                 y: -Math.cos(angle) * (window.innerWidth < 768 ? window.innerWidth * 1.2 : 1500) + 80,
-                scale: 1.5, // Less extreme scaling
+                scale: 1.2, // Improved elegant scaling
                 opacity: 0,
-                duration: 1.5, // Majestic, smooth explosion over more scroll distance
-                ease: "power2.out" // Start fast, slow down smoothly
+                duration: 2.5, // Majestic, smooth explosion over more scroll distance
+                ease: "expo.out" // Start fast, slow down smoothly
               }, 0);
             });
 
