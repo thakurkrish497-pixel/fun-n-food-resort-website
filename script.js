@@ -65,32 +65,38 @@ document.addEventListener('DOMContentLoaded', () => {
           try {
             gsap.registerPlugin(ScrollTrigger);
 
-            // Position the carousel images in a STATIC U-shape arc
             const carousel = document.querySelector('.carousel');
             const items = document.querySelectorAll('.carousel-item');
-            const radiusX = 650; 
-            const radiusY = 150; 
+            const radius = 450; // Perfect circle radius
             
             items.forEach((item, i) => {
-              const angle = items.length > 1 ? (i / (items.length - 1)) * Math.PI : 0;
-              const x = -Math.cos(angle) * radiusX;
-              const y = -Math.sin(angle) * radiusY + 180; 
-              const scale = 1.0 - Math.sin(angle) * 0.55; 
-              const opacity = 1.0 - Math.sin(angle) * 0.8; 
-              const zIndex = Math.round((1 - Math.sin(angle)) * 100);
-              const rotationY = -(angle * 180 / Math.PI) + 90;
+              // Distribute evenly in a full 360 circle
+              const angle = (i / items.length) * Math.PI * 2;
+              
+              // Standard 2D circle math
+              const x = Math.sin(angle) * radius;
+              const y = -Math.cos(angle) * radius; 
+              
+              // Rotated 90 degrees relative to the center
+              const rotationZ = (angle * 180 / Math.PI) + 90;
 
               gsap.set(item, { 
                 xPercent: -50, 
                 yPercent: -50, 
                 x: x, 
-                y: y,
-                scale: scale,
-                opacity: opacity,
-                zIndex: zIndex,
-                rotationY: rotationY,
-                willChange: "transform, opacity" // Massively improves performance and prevents lag
+                y: y + 80, // Center around the text
+                rotation: rotationZ, // 2D flat rotation
+                willChange: "transform" 
               });
+            });
+
+            // Make the entire ring rotate continuously around the text
+            gsap.to('.carousel', {
+              rotation: 360,
+              duration: 30,
+              repeat: -1,
+              ease: "linear",
+              transformOrigin: "center 80px" // Match the y+80 shift of the items
             });
 
             // Master Timeline pinned to #pin-master
@@ -106,12 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // 1. Disperse Ring & Fade Out (Explode on scroll)
-            // Added individually to avoid function-based value crash risks
             items.forEach((item, i) => {
-              const angle = items.length > 1 ? (i / (items.length - 1)) * Math.PI : 0;
+              const angle = (i / items.length) * Math.PI * 2;
               tl.to(item, {
-                x: -Math.cos(angle) * 2000,
-                y: -Math.sin(angle) * 1000 + 500,
+                x: Math.sin(angle) * 2000,
+                y: -Math.cos(angle) * 2000 + 80,
                 scale: 2,
                 opacity: 0,
                 duration: 1
