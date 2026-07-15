@@ -19,7 +19,7 @@ INSERT INTO public.website_data (id, content) VALUES (1, '{
     "text": "Fun N Food Resort is proudly managed by the SKCPL Group, delivering decades of excellence in hospitality and event management.",
     "items": [
       {
-        "name": "S. Kumar Construction",
+        "name": "S. Kumar Creation",
         "location": "Infrastructure & Development",
         "image": "assets/images/new_photos/IMG_2260.JPG.jpeg"
       },

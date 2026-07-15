@@ -4,11 +4,17 @@ let supabaseClient;
 if (window.supabase) {
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
-      storage: window.sessionStorage,
-      persistSession: true
+      persistSession: false // Do not persist session to storage
     }
   });
 }
+
+// Ensure the user is logged out if they navigate away and use the back button (BFCache)
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    window.location.reload();
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginScreen = document.getElementById('login-screen');
@@ -103,8 +109,55 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // If content is empty (new DB), init with empty structure to avoid errors
       siteData = data.content || {};
-      if(!siteData.hero) {
-         siteData = { hero:{}, brands:{items:[]}, facilities:{items:[]}, dining:{}, events:{}, contact:{}, gallery:[] };
+      if(!siteData.hero || Object.keys(siteData.hero).length === 0) {
+         siteData = {
+           "hero": {
+             "title": "Welcome to Fun N Food Resort & Water Park",
+             "text": "Indore's Premier Family Destination. Nestled in a lush green environment near Tejaji Nagar on Khandwa Road, we offer an unforgettable mix of thrilling water slides, luxurious accommodations, multi-cuisine dining, and sprawling marriage gardens for your grandest celebrations.",
+             "bgImage": "assets/images/new_photos/IMG_3211.JPG.jpeg"
+           },
+           "brands": {
+             "title": "SKCPL Group",
+             "text": "Fun N Food Resort is proudly managed by the SKCPL Group, delivering decades of excellence in hospitality and event management.",
+             "items": [
+               { "name": "S. Kumar Creation", "location": "Infrastructure & Development", "image": "assets/images/new_photos/IMG_2260.JPG.jpeg" },
+               { "name": "Fun N Food Resort", "location": "Khandwa Road, Indore", "image": "assets/images/new_photos/IMG_3211.JPG.jpeg" },
+               { "name": "S. Kumar Solar", "location": "Renewable Energy Solutions", "image": "assets/images/new_photos/IMG_2261.JPG.jpeg" }
+             ]
+           },
+           "facilities": {
+             "title": "Facilities & Amenities",
+             "items": [
+               { "id": "fac1", "title": "Thrilling Water Park", "text": "Dive into excitement at our state-of-the-art water park! Featuring massive slides, a crystal-clear swimming pool, and a high-energy Rain Dance area, it's the perfect way to beat the heat and create unforgettable family memories.", "image": "assets/images/new_photos/IMG_3212.JPG.jpeg" },
+               { "id": "fac2", "title": "Deluxe Resort Rooms", "text": "Relax in our highly comfortable, air-conditioned rooms designed for ultimate relaxation. Each room is equipped with modern amenities, premium bedding, and a peaceful ambiance to recharge after a fun-filled day.", "image": "assets/images/new_photos/IMG_3213.JPG.jpeg" },
+               { "id": "fac3", "title": "Sports & Indoor Games", "text": "Challenge your friends to a game of cricket or football on our massive open grounds, or stay cool indoors with snooker, billiards, carom, chess, and more in our dedicated indoor sports zone.", "image": "assets/images/new_photos/IMG_3467.JPG.jpeg" }
+             ]
+           },
+           "dining": {
+             "title": "Multi-Cuisine Dining",
+             "text": "Savor the taste of perfection at the Fun N Food Restaurant. Our expert chefs prepare a vast array of authentic multi-cuisine delicacies, from traditional Indian thalis to popular international dishes.\n\nWhether you are enjoying a casual family dinner or ordering late-night room service to your deluxe suite, our restaurant guarantees a delightful culinary experience with impeccable hygiene and service.",
+             "image": "assets/images/new_photos/IMG_3210.JPG.jpeg"
+           },
+           "events": {
+             "title": "Banquets & Marriage Gardens",
+             "text": "Make your special day truly grand. Our resort features sprawling, lush green marriage gardens capable of hosting thousands of guests for large-scale weddings and receptions under the open sky.\n\nFor indoor functions, corporate conferences, and private parties, our fully air-conditioned banquet halls provide an elegant setting with complete catering and event management support from the SKCPL Group.",
+             "image": "assets/images/new_photos/IMG_3469.JPG.jpeg"
+           },
+           "gallery": [
+             "assets/images/new_photos/IMG_2260.JPG.jpeg",
+             "assets/images/new_photos/IMG_2261.JPG.jpeg",
+             "assets/images/new_photos/IMG_3210.JPG.jpeg",
+             "assets/images/new_photos/IMG_3211.JPG.jpeg",
+             "assets/images/new_photos/IMG_3212.JPG.jpeg",
+             "assets/images/new_photos/IMG_3467.JPG.jpeg"
+           ],
+           "contact": {
+             "address": "Fun N Food Resort, Anuradha Nagar, Khandwa Road (Near BSNL Exchange), Tejaji Nagar, Indore, Madhya Pradesh 452020",
+             "phone": "+91 94798 00333",
+             "email": "funandfoodresort@gmail.com",
+             "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117822.46332151609!2d75.801655!3d22.656514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e2d091e48bc3%3A0xe541c9b68a6ea25b!2sFun%20N%20Food%20Family%20Restaurant%2C%20Resort%20%26%20Water%20Park!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+           }
+         };
       }
       populateForm(siteData);
     } catch (err) {
@@ -224,9 +277,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Handle Save All
-  saveAllBtn.addEventListener('click', async () => {
-    saveMsg.textContent = 'Saving...';
+  async function saveChanges(msgElement = saveMsg) {
+    msgElement.textContent = 'Saving...';
+    msgElement.style.color = 'inherit';
     
     siteData.hero.title = document.getElementById('hero-title').value;
     siteData.hero.text = document.getElementById('hero-text').value;
@@ -263,16 +316,33 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const { error } = await supabaseClient.from('website_data').upsert({ id: 1, content: siteData, updated_at: new Date().toISOString() });
       if (!error) {
-        saveMsg.textContent = 'Changes saved successfully!';
-        setTimeout(() => saveMsg.textContent = '', 3000);
+        msgElement.textContent = 'Changes saved successfully!';
+        msgElement.style.color = 'green';
+        setTimeout(() => msgElement.textContent = '', 3000);
       } else {
-        saveMsg.textContent = 'Error saving changes: ' + error.message;
-        saveMsg.style.color = 'red';
+        msgElement.textContent = 'Error saving changes: ' + error.message;
+        msgElement.style.color = 'red';
       }
     } catch (err) {
-      saveMsg.textContent = 'Server error.';
-      saveMsg.style.color = 'red';
+      msgElement.textContent = 'Server error.';
+      msgElement.style.color = 'red';
     }
+  }
+
+  // Handle Save All Main Button
+  saveAllBtn.addEventListener('click', () => saveChanges(saveMsg));
+
+  // Handle Section-level Save Buttons
+  document.querySelectorAll('.section-save-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // Find the closest parent that contains the save-msg span (which is immediately after the button)
+      const msgEl = e.target.nextElementSibling || e.target.parentElement.querySelector('.section-save-msg');
+      if (msgEl) {
+        saveChanges(msgEl);
+      } else {
+        saveChanges(saveMsg);
+      }
+    });
   });
 
   document.getElementById('hero-bg-upload').addEventListener('change', (e) => uploadImage(e, 'hero-bg', 'hero-bg-preview'));
