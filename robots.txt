@@ -1,0 +1,42 @@
+# =========================================================
+# robots.txt — Fun & Food Resort & Water Park, Indore
+# https://www.funandfoodresort.com
+# Last Updated: July 2026
+# =========================================================
+
+# Allow all search engine crawlers
+User-agent: *
+
+# Allow crawling of all public pages
+Allow: /
+
+# Block admin and internal tooling
+Disallow: /admin.html
+Disallow: /admin.css
+Disallow: /admin.js
+Disallow: /api/
+
+# Block utility scripts (not content pages)
+Disallow: /book.js
+Disallow: /script.js
+Disallow: /check_db.js
+Disallow: /test_fetch.js
+Disallow: /test.html
+
+# Block Python utility scripts
+Disallow: /*.py$
+Disallow: /*.sql$
+Disallow: /*.ps1$
+
+# Block node_modules
+Disallow: /node_modules/
+
+# Allow CSS & JS for rendering (important for Google)
+Allow: /style.css
+Allow: /animation.css
+
+# Allow all image assets for Google Image Search
+Allow: /assets/images/
+
+# Sitemap location
+Sitemap: https://www.funandfoodresort.com/sitemap.xml

@@ -3,13 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accommodation | Fun N Food</title>
+
+  <!-- SEO Meta Tags -->
+  <title>Luxury Rooms & Stay at Fun & Food Resort Indore | Book Online</title>
+  <meta name="description" content="Book luxurious AC rooms, family suites & honeymoon rooms at Fun & Food Resort, Indore. Complimentary water park access, garden views, room service & modern amenities. Best rates guaranteed!">
+  <link rel="canonical" href="https://www.funandfoodresort.com/accommodation">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Resort Rooms & Accommodation — Fun & Food Resort, Indore">
+  <meta property="og:description" content="Luxury rooms with water park access, garden views & modern amenities. Book your stay at Indore's best resort!">
+  <meta property="og:image" content="https://www.funandfoodresort.com/assets/images/0A9A3945.JPG">
+  <meta property="og:url" content="https://www.funandfoodresort.com/accommodation">
+  <meta property="og:site_name" content="Fun & Food Resort Indore">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Luxury Rooms & Stay | Fun & Food Resort Indore">
+  <meta name="twitter:description" content="Book luxury AC rooms with water park access at Indore's best resort!">
+  <meta name="twitter:image" content="https://www.funandfoodresort.com/assets/images/0A9A3945.JPG">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/assets/images/logo.jpeg">
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <!-- LodgingBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "@id": "https://www.funandfoodresort.com/accommodation#lodging",
+    "name": "Fun & Food Resort — Rooms & Stay",
+    "description": "Luxurious and affordable rooms at Fun & Food Resort, Indore. AC rooms, family suites, honeymoon suites with modern amenities, garden views, and complimentary water park access.",
+    "url": "https://www.funandfoodresort.com/accommodation",
+    "telephone": "+919479800333",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Khandwa Road, near BSNL Exchange, Tejaji Nagar",
+      "addressLocality": "Indore",
+      "addressRegion": "Madhya Pradesh",
+      "postalCode": "452001",
+      "addressCountry": "IN"
+    },
+    "checkinTime": "12:00",
+    "checkoutTime": "11:00",
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Air Conditioning", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Room Service", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Water Park Access", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Swimming Pool", "value": true }
+    ]
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.funandfoodresort.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Accommodation", "item": "https://www.funandfoodresort.com/accommodation" }
+    ]
+  }
+  </script>
 </head>
 <body class="page-padding">
   <header class="header" id="header" style="background-color: var(--primary-color);">
@@ -38,7 +102,7 @@
     <div class="container">
       <div class="split-layout">
         <div class="split-text">
-          <h2 id="acc-title" class="section-title" style="text-align: left;">Luxurious Stay</h2>
+          <h1 id="acc-title" class="section-title" style="text-align: left;">Luxury Rooms & Accommodation in Indore</h1>
           <p id="acc-text" class="section-text">
             Experience comfort and luxury in our elegantly designed rooms. Whether you are here for a relaxing weekend getaway, a family vacation, or attending a grand wedding, our accommodations offer the perfect retreat. Each room is equipped with modern amenities to ensure your stay is memorable. Wake up to beautiful views and enjoy our world-class hospitality right at your doorstep.
           </p>
@@ -106,6 +170,7 @@
       </div>
     </div>
   </footer>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

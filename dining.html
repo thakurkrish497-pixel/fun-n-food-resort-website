@@ -3,13 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dining | Fun N Food</title>
+
+  <!-- SEO Meta Tags -->
+  <title>Multi-Cuisine Restaurant in Indore | Dining at Fun & Food Resort</title>
+  <meta name="description" content="Enjoy delicious North Indian, South Indian, Chinese, Continental & Jain cuisine at Fun & Food Resort's multi-cuisine restaurant in Indore. Family dining, party catering & buffet available!">
+  <link rel="canonical" href="https://www.funandfoodresort.com/dining">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Multi-Cuisine Family Restaurant — Fun & Food Resort, Indore">
+  <meta property="og:description" content="Delicious Indian, Chinese & Continental food. Family dining, party catering & buffet at Indore's best resort restaurant.">
+  <meta property="og:url" content="https://www.funandfoodresort.com/dining">
+  <meta property="og:site_name" content="Fun & Food Resort Indore">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Multi-Cuisine Restaurant | Fun & Food Resort Indore">
+  <meta name="twitter:description" content="North Indian, Chinese, Continental & Jain cuisine at Indore's best resort restaurant.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/assets/images/logo.jpeg">
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <!-- Restaurant Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "@id": "https://www.funandfoodresort.com/dining#restaurant",
+    "name": "Fun & Food Multi-Cuisine Restaurant",
+    "description": "Multi-cuisine family restaurant at Fun & Food Resort, Indore. Serving North Indian, South Indian, Chinese, Continental, and Jain food.",
+    "url": "https://www.funandfoodresort.com/dining",
+    "servesCuisine": ["Indian", "North Indian", "South Indian", "Chinese", "Continental", "Jain"],
+    "telephone": "+919479800333",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Khandwa Road, near BSNL Exchange, Tejaji Nagar",
+      "addressLocality": "Indore",
+      "addressRegion": "Madhya Pradesh",
+      "postalCode": "452001",
+      "addressCountry": "IN"
+    },
+    "priceRange": "₹₹",
+    "menu": "https://www.funandfoodresort.com/dining"
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.funandfoodresort.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Dining", "item": "https://www.funandfoodresort.com/dining" }
+    ]
+  }
+  </script>
 </head>
 <body class="page-padding">
   <header class="header" id="header" style="background-color: var(--primary-color);">
@@ -37,7 +93,7 @@
     <div class="container">
       <div class="split-layout">
         <div class="split-text">
-          <h2 id="dining-title" class="section-title">Loading...</h2>
+          <h1 id="dining-title" class="section-title">Multi-Cuisine Restaurant & Dining in Indore</h1>
           <p id="dining-text" class="section-text"></p>
         </div>
         <div class="split-image">
@@ -60,7 +116,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="accommodation.html">Accommodation</a></li>
-        <li><a href="accommodation.html" class="nav-link">Accommodation</a></li>
+
             <li><a href="facilities.html">Facilities</a></li>
             <li><a href="dining.html">Dining</a></li>
             <li><a href="gallery.html">Gallery</a></li>
@@ -87,6 +143,7 @@
       </div>
     </div>
   </footer>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

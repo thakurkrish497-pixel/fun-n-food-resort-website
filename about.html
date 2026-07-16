@@ -3,13 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Fun N Food</title>
+
+  <!-- SEO Meta Tags -->
+  <title>About Fun & Food Resort Indore | SKCPL Group — Since 1990</title>
+  <meta name="description" content="Learn about Fun & Food Resort (SKCPL Group), Indore's premier leisure destination since 1990. Our story, mission, and commitment to creating unforgettable family experiences with water park, dining & events.">
+  <link rel="canonical" href="https://www.funandfoodresort.com/about">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About Fun & Food Resort — Indore's Premier Destination Since 1990">
+  <meta property="og:description" content="SKCPL Group's flagship resort with water park, dining, rooms & marriage gardens in Indore since 1990.">
+  <meta property="og:url" content="https://www.funandfoodresort.com/about">
+  <meta property="og:site_name" content="Fun & Food Resort Indore">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Fun & Food Resort Indore | SKCPL Group">
+  <meta name="twitter:description" content="Indore's premier leisure destination since 1990 — water park, luxury rooms, dining & events.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/assets/images/logo.jpeg">
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.funandfoodresort.com/" },
+      { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://www.funandfoodresort.com/about" }
+    ]
+  }
+  </script>
 </head>
 <body class="page-padding">
   <header class="header" id="header" style="background-color: var(--primary-color);">
@@ -35,7 +67,7 @@
 
   <section class="section">
     <div class="container text-center">
-      <h2 class="section-title">About Fun N Food</h2>
+      <h1 class="section-title">About Fun & Food Resort — Indore's Premier Destination Since 1990</h1>
       <p class="section-text" style="max-width: 800px; margin: 0 auto 40px auto; text-align: left; line-height: 1.8;">
         Welcome to <strong>Fun N Food Family Restaurant Resort & Water Park</strong>, proudly part of the prestigious SKCPL Group. Located near BSNL Exchange, Tejaji Nagar on Khandwa Road, we are Indore's premier destination for leisure, celebrations, and corporate events.
         <br><br>
@@ -59,7 +91,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="accommodation.html">Accommodation</a></li>
-        <li><a href="accommodation.html" class="nav-link">Accommodation</a></li>
+
             <li><a href="facilities.html">Facilities</a></li>
             <li><a href="dining.html">Dining</a></li>
             <li><a href="gallery.html">Gallery</a></li>
@@ -86,6 +118,7 @@
       </div>
     </div>
   </footer>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

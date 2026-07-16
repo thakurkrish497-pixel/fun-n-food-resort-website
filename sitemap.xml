@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- ===== HOME (Highest Priority) ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.funandfoodresort.com/assets/images/logo.jpeg</image:loc>
+      <image:title>Fun and Food Resort Logo Indore</image:title>
+    </image:image>
+  </url>
+
+  <!-- ===== ABOUT US ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/about</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ===== FACILITIES / WATER PARK ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/facilities</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ===== ACCOMMODATION / ROOMS ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/accommodation</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ===== DINING ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/dining</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== BANQUETS & EVENTS / MARRIAGE GARDEN ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/events</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ===== GALLERY ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/gallery</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ===== BOOK NOW ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/book</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== CONTACT ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/contact</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ===== PRIVACY / LEGAL ===== -->
+  <url>
+    <loc>https://www.funandfoodresort.com/privacy</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

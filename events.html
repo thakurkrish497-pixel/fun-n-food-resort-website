@@ -3,13 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banquets & Events | Fun N Food</title>
+
+  <!-- SEO Meta Tags -->
+  <title>Marriage Garden & Banquet Hall in Indore | Wedding Venue — Fun & Food Resort</title>
+  <meta name="description" content="Indore's most beautiful marriage garden & banquet hall at Fun & Food Resort. Grand wedding venues, corporate conference halls, birthday party spaces. Capacity: 2000+ guests. Get a quote now!">
+  <link rel="canonical" href="https://www.funandfoodresort.com/events">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Grand Marriage Garden & Wedding Venue — Fun & Food Resort, Indore">
+  <meta property="og:description" content="Host your dream wedding at Indore's finest marriage garden. Sprawling lawns, banquet halls, catering & complete event management.">
+  <meta property="og:url" content="https://www.funandfoodresort.com/events">
+  <meta property="og:site_name" content="Fun & Food Resort Indore">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Marriage Garden & Banquet Hall | Fun & Food Resort Indore">
+  <meta name="twitter:description" content="Grand wedding venue in Indore — sprawling lawns, banquet halls, 2000+ capacity. Get a quote!">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/assets/images/logo.jpeg">
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <!-- EventVenue Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EventVenue",
+    "@id": "https://www.funandfoodresort.com/events#venue",
+    "name": "Fun & Food Marriage Garden & Banquet Hall",
+    "description": "Indore's most prestigious marriage garden and banquet hall for weddings, receptions, corporate events, and social gatherings.",
+    "url": "https://www.funandfoodresort.com/events",
+    "telephone": "+919479800333",
+    "email": "funandfoodresort@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Khandwa Road, near BSNL Exchange, Tejaji Nagar",
+      "addressLocality": "Indore",
+      "addressRegion": "Madhya Pradesh",
+      "postalCode": "452001",
+      "addressCountry": "IN"
+    },
+    "maximumAttendeeCapacity": 2000,
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Outdoor Lawn", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Indoor Banquet Hall", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Catering Services", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Valet Parking", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "DJ & Sound System", "value": true }
+    ]
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.funandfoodresort.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Banquets & Events", "item": "https://www.funandfoodresort.com/events" }
+    ]
+  }
+  </script>
 </head>
 <body class="page-padding">
   <header class="header" id="header" style="background-color: var(--primary-color);">
@@ -37,7 +99,7 @@
     <div class="container">
       <div class="split-layout" style="flex-direction: row-reverse;">
         <div class="split-text">
-          <h2 id="events-title" class="section-title">Loading...</h2>
+          <h1 id="events-title" class="section-title">Marriage Garden & Banquet Halls in Indore</h1>
           <p id="events-text" class="section-text"></p>
         </div>
         <div class="split-image">
@@ -60,7 +122,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="accommodation.html">Accommodation</a></li>
-        <li><a href="accommodation.html" class="nav-link">Accommodation</a></li>
+
             <li><a href="facilities.html">Facilities</a></li>
             <li><a href="dining.html">Dining</a></li>
             <li><a href="gallery.html">Gallery</a></li>
@@ -87,6 +149,7 @@
       </div>
     </div>
   </footer>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
