@@ -1232,6 +1232,10 @@ a {
   .large-title {
     font-size: 3.5rem !important;
   }
+  .blackletter-title {
+    font-size: 2.8rem !important;
+    line-height: 1.1;
+  }
   .section-title {
     font-size: 2rem !important;
   }
