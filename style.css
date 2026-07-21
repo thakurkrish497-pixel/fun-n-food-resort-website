@@ -953,35 +953,7 @@ a {
 }
 
 @media (max-width: 768px) {
-  #nav-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: var(--primary-color);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-  }
   
-  #nav-menu.active {
-    max-height: 600px;
-  }
-  
-  .nav-list {
-    flex-direction: column;
-    padding: 20px 0;
-    gap: 0;
-  }
-  
-  .nav-list li {
-    text-align: center;
-    padding: 15px 0;
-  }
-  
-  .menu-toggle {
-    display: flex;
-  }
   
   .header-actions {
     display: none !important;
